@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\Inmo.csproj": {}
+    "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\Inmo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\Inmo.csproj": {
+    "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\Inmo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\Inmo.csproj",
+        "projectUniqueName": "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\Inmo.csproj",
         "projectName": "Inmo",
-        "projectPath": "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\Inmo.csproj",
+        "projectPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\Inmo.csproj",
         "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\obj\\",
+        "outputPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

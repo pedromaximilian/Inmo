@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cH4wpdBb+EX6Km6av58qKGVXiqDXwxRHHYgYxCu4tkMILpQWESzxzcR5Tos73k/KmwvCrpNnon3KHr7zOP6q+A==",
+  "dgSpecHash": "Dimql4RNLN7W46lxUKcCNarjB85XW2L4Dy3ExUGxVnLYj8z3vAl1xC+rIJyFNZNSUHBu+ohgAF3OUg0RA97CVw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pedro\\OneDrive\\.Net\\Proyecto\\Inmo\\Inmo\\Inmo.csproj",
+  "projectFilePath": "C:\\Users\\pedro\\OneDrive\\Documentos\\GitHub\\Inmo\\Inmo\\Inmo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pedro\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\pedro\\.nuget\\packages\\font.awesome\\5.13.0\\font.awesome.5.13.0.nupkg.sha512",

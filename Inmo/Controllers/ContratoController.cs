@@ -190,9 +190,11 @@ namespace Inmo.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult buscar2(Contrato contrato)
+        
+        public ActionResult buscar2(DateTime fecha1, DateTime fecha2)
         {
+
+
             Contrato contrato1 = contratoData.ObtenerPorId(25);
 
             return Json(contrato1);

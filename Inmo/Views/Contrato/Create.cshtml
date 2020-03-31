@@ -259,17 +259,19 @@
     });*@
     $('#btnBuscador').click(function () {
 
-        var contrato = { "id": 25, "inmuebleId": 1 }
+        var inicio = $('#inicioAlquiler').val()
+        var fin = $('#finAlquiler').val()
         $.ajax({
             url: "@Url.Action("buscar2", "Contrato")",
-            //contentType: "application/json; charset=utf-8",
-            async: true,
-            type: "POST",
-            data: JSON.stringify({"id": 25, "inmuebleId": 1 }),
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Fallo: " + errorThrown);
+            type: "GET",
+            data: {
+                fecha1: inicio,
+                fecha2: fin
             },
-            success: function (data, textStatus, jqXHR) {
+            error: function (response) {
+                console.log("Fallo: ");
+            },
+            success: function (response) {
                 console.log("Exito!");
             }
         });
