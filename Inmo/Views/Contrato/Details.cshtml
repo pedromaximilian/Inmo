@@ -1,0 +1,202 @@
+﻿
+@model Inmo.Models.Contrato
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Contrato</h4>
+    <hr />
+    <dl class="row">
+        <div class="col-6">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Inmueble.Direccion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Inquilino.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaInicio)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaFin)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaFin)
+            </dd>
+
+        </div>
+
+        <div class="col-6">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Monto)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Monto)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NombreGarante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NombreGarante)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DniGarante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DniGarante)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TelefonoGarante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TelefonoGarante)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MailGarante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MailGarante)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+            </div>
+    </dl>
+</div>
+<div>
+    <a href="@Url.Action("Editar", "Contrato", new { id = Model.Id })">
+        Regresar
+
+    </a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Pago
+            </th>
+            <th>
+                Vencimiento
+            </th>
+            <th>
+                Fecha Pago
+            </th>
+            <th>
+                Importe
+            </th>
+            <th id="estadoPago">
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Pago item in ViewBag.Pagos) {
+        <tr>
+
+            <td>
+                @item.Numero
+            </td>
+            <td>
+                @item.FechaVencimiento.ToShortDateString()
+            </td>
+            <td>
+                @if (item.FechaPago.ToString() != "1/1/0001 00:00:00")
+                {
+                    @item.FechaPago.ToShortDateString();
+                }
+
+
+
+
+            </td>
+            <td>
+                @item.Importe
+            </td>
+            <td>
+                @if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
+                {
+                    <span class="badge badge-pill badge-danger">Atrasado</span>
+
+                    
+
+
+
+                }
+                else
+                {
+
+                    @if (item.Estado == "pendiente")
+                    {
+
+                        <span class="badge badge-pill badge-warning">@item.Estado</span>
+
+
+                    }
+                    else
+                    {
+
+                        <span class="badge badge-pill badge-primary">@item.Estado</span>
+
+
+                    }
+
+                }
+
+
+
+
+
+
+
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Pagar", "Pago", new { id = item.Id })">
+                    Pagar
+
+                </a>
+
+        </tr>
+}
+    </tbody>
+</table>
+
+
+

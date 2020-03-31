@@ -1,0 +1,279 @@
+﻿@model Inmo.Models.Contrato
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear Nuevo</h1>
+
+<h4>Contrato</h4>
+<hr />
+
+<div class="row">
+    <div class="col-4">
+
+        <form >
+            <label>Inicio</label>
+            <input type="date" id="inicioAlquiler" name="inicioAlquiler" value="" /><br />
+                                                                                    <label>Fin</label>
+            <input type="date" name="finAlquiler" id="finAlquiler" value="" />
+            <input type="button" id="btnBuscador" name="name" value="Ajax Test" />
+
+
+        </form>
+
+
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInmueble">
+            Buscar Inmuebles
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="modalInmueble" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <div class="modal-body">
+
+
+                        <table class="table" id="tabla" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th hidden>
+                                        id
+                                    <th>
+                                        Dirección
+                                    </th>
+                                    <th>
+                                        Ambientes
+                                    </th>
+                                    <th>
+                                        Uso
+                                    </th>
+                                    <th>
+                                        Tipo
+                                    </th>
+                                    <th>
+                                        Precio
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.Inmuebles)
+                                {
+                                    <tr>
+                                        <td hidden>
+                                            @item.Id
+                                        </td>
+
+                                        <td>
+                                            @item.Direccion
+                                        </td>
+                                        <td>
+                                            @item.Ambientes
+                                        </td>
+                                        <td>
+                                            @item.Uso
+                                        </td>
+                                        <td>
+                                            @item.Tipo
+                                        </td>
+                                        <td>
+                                            @item.Precio
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @*<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <!-- Button trigger modal -->
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+
+
+
+
+            <div class="form-group" hidden>
+                <label asp-for="InmuebleId" class="control-label"></label>
+                <input asp-for="InmuebleId" class="form-control inmuebleId" value="" />
+                <span asp-validation-for="InmuebleId" class="text-danger"></span>
+            </div>
+            <h3 class="inmuebleNombre"></h3>
+            <h4 class="inmuebleAmbientes"></h4>
+            <h4 class="inmuebleUso"></h4>
+
+
+
+
+
+
+            @*<div class="form-group">
+            <label asp-for="InquilinoId" class="control-label"></label>
+            <input asp-for="InquilinoId" class="form-control" />
+            <span asp-validation-for="InquilinoId" class="text-danger"></span>
+        </div>*@
+
+            <div class="form-group">
+                <label asp-for="InquilinoId" class="control-label"></label>
+                <select asp-for="InquilinoId" class="form-control seleccion">
+
+                    @foreach (var item in ViewBag.Inquilinos)
+                    {
+                        <option value="@item.Id">@item.Nombre - @item.Dni</option>
+                    }
+
+
+                </select>
+                <span asp-validation-for="InquilinoId" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="FechaInicio" class="control-label"></label>
+                <input asp-for="FechaInicio" class="form-control" />
+                <span asp-validation-for="FechaInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaFin" class="control-label"></label>
+                <input asp-for="FechaFin" class="form-control" />
+                <span asp-validation-for="FechaFin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Monto" class="control-label"></label>
+                <input asp-for="Monto" class="form-control inmueblePrecio" />
+                <span asp-validation-for="Monto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreGarante" class="control-label"></label>
+                <input asp-for="NombreGarante" class="form-control" />
+                <span asp-validation-for="NombreGarante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DniGarante" class="control-label"></label>
+                <input asp-for="DniGarante" class="form-control" />
+                <span asp-validation-for="DniGarante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelefonoGarante" class="control-label"></label>
+                <input asp-for="TelefonoGarante" class="form-control" />
+                <span asp-validation-for="TelefonoGarante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MailGarante" class="control-label"></label>
+                <input asp-for="MailGarante" class="form-control" />
+                <span asp-validation-for="MailGarante" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+
+
+    $('td').click(function () {
+
+
+
+        table = $('#tabla').DataTable();
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0] + " - " + data[1]);
+        valor = data[0];
+        $('.inmuebleId').val(data[0])
+        $('.inmuebleNombre').text(data[1])
+        $('.inmuebleAmbientes').text("Ambientes: " + data[2])
+        $('.inmuebleUso').text("Uso: " + data[3])
+        $('.inmueblePrecio').val(data[5])
+        $('#modalInmueble').modal('toggle')
+
+    });
+
+
+    @*$('#btnBuscador').click(function () {
+
+        var FechaInicio = $('#inicioAlquiler').val()
+        var FechaFin= $('#finAlquiler').val()
+
+
+        var contrato = {
+            Contrato: {
+                "FechaInicio": FechaInicio,
+                "FechaFin": FechaFin,
+                "ID": "44"
+            }
+        }
+
+        var url = "@Url.Action("buscar", "Contrato")"
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(contrato),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (response) {
+                alert('Se Actualizo el registro');
+
+            },
+            error: function (response) {
+
+            }
+        });
+
+    });*@
+    $('#btnBuscador').click(function () {
+
+        var contrato = { "id": 25, "inmuebleId": 1 }
+        $.ajax({
+            url: "@Url.Action("buscar2", "Contrato")",
+            //contentType: "application/json; charset=utf-8",
+            async: true,
+            type: "POST",
+            data: JSON.stringify({"id": 25, "inmuebleId": 1 }),
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Fallo: " + errorThrown);
+            },
+            success: function (data, textStatus, jqXHR) {
+                console.log("Exito!");
+            }
+        });
+    });
+</script>
+    
+}
