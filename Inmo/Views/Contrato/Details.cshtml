@@ -87,113 +87,125 @@
     </dl>
 </div>
 <div>
-    
+
     <a asp-action="Index" class="btn btn-dark">Regresar a la lista</a>
-</div>
+    @if (Model.Estado != "rescindido")
+    {
+        <a class="btn btn-danger" href="@Url.Action("Rescindir", "Contrato", new { id = @Model.Id })">
+            <i class="fi-xnpuxl-home"></i> Rescindir Contrato
+        </a>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            Este contrato ha sido rescindido antes de finalizar
+        </div>
+            
+    }
 
-<table class="table">
-    <thead>
-        <tr>
 
-            <th>
-                Pago
-            </th>
-            <th>
-                Vencimiento
-            </th>
-            <th>
-                Fecha Pago
-            </th>
-            <th>
-                Importe
-            </th>
-            <th id="estadoPago">
-                Estado
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (Pago item in ViewBag.Pagos) {
-        <tr>
+        </div>
 
-            <td>
-                @item.Numero
-            </td>
-            <td>
-                @item.FechaVencimiento.ToShortDateString()
-            </td>
-            <td>
-                @if (item.FechaPago.ToString() != "1/1/0001 00:00:00")
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        Pago
+                    </th>
+                    <th>
+                        Vencimiento
+                    </th>
+                    <th>
+                        Fecha Pago
+                    </th>
+                    <th>
+                        Importe
+                    </th>
+                    <th id="estadoPago">
+                        Estado
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Pago item in ViewBag.Pagos)
                 {
-                    @item.FechaPago.ToShortDateString();
+                    <tr>
+
+                        <td>
+                            @item.Numero
+                        </td>
+                        <td>
+                            @item.FechaVencimiento.ToShortDateString()
+                        </td>
+                        <td>
+                            @if (item.FechaPago.ToString() != "1/1/0001 00:00:00")
+                            {
+                                @item.FechaPago.ToShortDateString();
+                            }
+
+
+
+
+                        </td>
+                        <td>
+                            @item.Importe
+                        </td>
+                        <td>
+                            @if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
+                            {
+                                <span class="badge badge-pill badge-danger">Atrasado</span>
+                            }
+
+                            else
+                            {
+
+                                @if (item.Estado == "pendiente")
+                                {
+
+                                    <span class="badge badge-pill badge-warning">@item.Estado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill badge-primary">@item.Estado</span>
+                                }
+
+                            }
+
+
+
+
+
+
+
+
+
+                        </td>
+
+
+
+
+
+
+
+
+
+                        <td>
+                            @if (item.Estado != "pagado" && Model.Estado != "rescindido")
+                            {
+                                <a class="btn btn-primary" href="@Url.Action("Pagar", "Pago", new { id = item.Id })">
+                                    Pagar
+
+                                </a>
+                            }
+
+
+
+                    </tr>
                 }
-
-
-
-
-            </td>
-            <td>
-                @item.Importe
-            </td>
-            <td>
-                @if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
-                {
-                    <span class="badge badge-pill badge-danger">Atrasado</span>
-
-                    
-
-
-
-                }
-                else
-                {
-
-                    @if (item.Estado == "pendiente")
-                    {
-
-                        <span class="badge badge-pill badge-warning">@item.Estado</span>
-
-
-                    }
-                    else
-                    {
-
-                        <span class="badge badge-pill badge-primary">@item.Estado</span>
-
-
-                    }
-
-                }
-
-
-
-
-
-
-
-
-
-            </td>
-
-
-
-
-
-
-
-
-
-            <td>
-                <a class="btn btn-primary" href="@Url.Action("Pagar", "Pago", new { id = item.Id })">
-                    Pagar
-
-                </a>
-
-        </tr>
-}
-    </tbody>
-</table>
+            </tbody>
+        </table>
 
 
 

@@ -17,5 +17,6 @@ namespace Inmo.Models
         public DateTime FechaPago { get; set; }
         public Decimal Importe { get; set; }
         public string Estado { get; set; }
+
     }
 }

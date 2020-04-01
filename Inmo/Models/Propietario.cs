@@ -16,8 +16,6 @@ namespace Inmo.Models
         public string Email { get; set; }
         public string Telefono { get; set; }
 
-        public bool Disponible { get; set; }
-
         public List<Inmueble> Inmuebles { get; set; }
 
     }

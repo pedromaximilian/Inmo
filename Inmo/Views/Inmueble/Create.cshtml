@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Agregar Nuevo</h1>
 
 <h4>Inmueble</h4>
 <hr />
@@ -27,7 +27,7 @@
                 </select>
                 <span asp-validation-for="PropietarioId" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />
@@ -38,35 +38,56 @@
                 <input asp-for="Ambientes" class="form-control" />
                 <span asp-validation-for="Ambientes" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
                 <label asp-for="Uso" class="control-label"></label>
-                <input asp-for="Uso" class="form-control" />
+                @*<input asp-for="PropietarioId" class="form-control" />*@
+                <select asp-for="Uso" class="form-control seleccion">
+
+                    @foreach (var item in ViewBag.Usos)
+                    {
+                        <option value="@item.id">@item.estado</option>
+                    }
+
+
+                </select>
                 <span asp-validation-for="Uso" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Tipo" class="control-label"></label>
-                <input asp-for="Tipo" class="form-control" />
+                
+                <select asp-for="Tipo" class="form-control seleccion">
+
+                    @foreach (var item in ViewBag.Tipos)
+                    {
+                        <option value="@item.id">@item.estado</option>
+                    }
+                </select>
                 <span asp-validation-for="Tipo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Disponible" /> @Html.DisplayNameFor(model => model.Disponible)
+                </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-dark">Regresar a la lista</a>
 </div>
 
 @section Scripts {

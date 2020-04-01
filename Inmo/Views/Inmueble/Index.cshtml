@@ -29,7 +29,7 @@
                     @Html.DisplayNameFor(model => model.Precio)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Estado)
+                    @Html.DisplayNameFor(model => model.Disponible)
                 </th>
                 <th></th>
             </tr>
@@ -55,7 +55,7 @@
                         @Html.DisplayFor(modelItem => item.Precio)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
+                        @Html.DisplayFor(modelItem => item.Disponible)
                     </td>
                     <td>
                         <a class="btn btn-primary" href="@Url.Action("Details", "Inmueble", new { id = item.Id })">
@@ -66,9 +66,9 @@
                             <i class="fi-xnluxl-pen-solid"></i>
                         </a>
 
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Inmueble", new { id = item.Id })">
+                        @*<a class="btn btn-danger" href="@Url.Action("Delete", "Inmueble", new { id = item.Id })">
                             <i class="fi-xnluxl-trash-bin"></i>
-                        </a>
+                        </a>*@
 
                     </td>
 

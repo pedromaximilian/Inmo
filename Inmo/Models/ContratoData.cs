@@ -28,7 +28,7 @@ namespace Inmo.Models
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     string sql = $"INSERT INTO Contratos (inmuebleId, inquilinoId, fecha_inicio, fecha_fin, monto, nombre_garante, dni_garante, telefono_garante, mail_garante, estado) " +
-                        $"VALUES (@inmuebleId, @inquilinoId, @fecha_inicio, @fecha_fin, @monto, @nombre_garante, @dni_garante, @telefono_garante, @mail_garante, 'activo');" +
+                        $"VALUES (@inmuebleId, @inquilinoId, @fecha_inicio, @fecha_fin, @monto, @nombre_garante, @dni_garante, @telefono_garante, @mail_garante, 'normal');" +
                         
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -82,7 +82,7 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE Contratos SET inmuebleId=@inmuebleId, inquilinoId=@inquilinoId, fecha_inicio=@fecha_inicio,fecha_fin=@fecha_fin, monto=@monto, nombre_garante=@nombre_garante, dni_garante=@dni_garante, telefono_garante=@telefono_garante, mail_garante=@mail_garante WHERE Id = @id";
+                string sql = $"UPDATE Contratos SET inmuebleId=@inmuebleId, inquilinoId=@inquilinoId, fecha_inicio=@fecha_inicio,fecha_fin=@fecha_fin, monto=@monto, nombre_garante=@nombre_garante, dni_garante=@dni_garante, telefono_garante=@telefono_garante, mail_garante=@mail_garante, estado=@estado WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -96,6 +96,7 @@ namespace Inmo.Models
                     command.Parameters.AddWithValue("@dni_garante", p.DniGarante);
                     command.Parameters.AddWithValue("@telefono_garante", p.TelefonoGarante);
                     command.Parameters.AddWithValue("@mail_garante", p.MailGarante);
+                    command.Parameters.AddWithValue("@estado", p.Estado);
                     
 
                     connection.Open();
@@ -159,7 +160,7 @@ namespace Inmo.Models
                                 Uso = reader.GetString(23),
                                 Tipo = reader.GetString(24),
                                 Precio = reader.GetFloat(25),
-                                Estado = reader.GetString(26),
+                                Disponible = reader.GetBoolean(26),
 
                             };
 
@@ -339,7 +340,7 @@ namespace Inmo.Models
                             Uso = reader.GetString(23),
                             Tipo = reader.GetString(24),
                             Precio = reader.GetFloat(25),
-                            Estado = reader.GetString(26),
+                            Disponible = reader.GetBoolean(26),
 
                         };
 

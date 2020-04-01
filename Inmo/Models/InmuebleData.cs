@@ -28,8 +28,8 @@ namespace Inmo.Models
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = $"INSERT INTO inmuebles (propietarioId, direccion, ambientes, uso, tipo, precio, estado) " +
-                        $"VALUES (@propietarioId, @direccion, @ambientes, @uso, @tipo, @precio, @estado);" +
+                    string sql = $"INSERT INTO inmuebles (propietarioId, direccion, ambientes, uso, tipo, precio, disponible) " +
+                        $"VALUES (@propietarioId, @direccion, @ambientes, @uso, @tipo, @precio, @disponible);" +
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
@@ -40,7 +40,7 @@ namespace Inmo.Models
                         command.Parameters.AddWithValue("@uso", p.Uso);
                         command.Parameters.AddWithValue("@tipo", p.Tipo);
                         command.Parameters.AddWithValue("@precio", p.Precio);
-                        command.Parameters.AddWithValue("@estado", p.Estado);
+                        command.Parameters.AddWithValue("@disponible", p.Disponible);
 
                         connection.Open();
                         res = Convert.ToInt32(command.ExecuteScalar());
@@ -79,7 +79,7 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE Inmuebles SET propietarioId=@propietarioId, direccion=@direccion, ambientes=@ambientes, uso=@uso, tipo=@tipo, precio=@precio, estado=@estado WHERE Id = @id";
+                string sql = $"UPDATE Inmuebles SET propietarioId=@propietarioId, direccion=@direccion, ambientes=@ambientes, uso=@uso, tipo=@tipo, precio=@precio, disponible=@disponible WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -90,7 +90,7 @@ namespace Inmo.Models
                     command.Parameters.AddWithValue("@uso", p.Uso);
                     command.Parameters.AddWithValue("@tipo", p.Tipo);
                     command.Parameters.AddWithValue("@precio", p.Precio);
-                    command.Parameters.AddWithValue("@estado", p.Estado);
+                    command.Parameters.AddWithValue("@disponible", p.Disponible);
                     connection.Open();
                     res = command.ExecuteNonQuery();
                     connection.Close();
@@ -104,7 +104,7 @@ namespace Inmo.Models
             IList<Inmueble> res = new List<Inmueble>();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"SELECT id, propietarioId, direccion, ambientes, uso, tipo, precio, estado" +
+                string sql = $"SELECT id, propietarioId, direccion, ambientes, uso, tipo, precio, disponible" +
                     $" FROM Inmuebles";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -122,7 +122,7 @@ namespace Inmo.Models
                             Uso = reader.GetString(4),
                             Tipo = reader.GetString(5),
                             Precio = reader.GetFloat(6),
-                            Estado = reader.GetString(7),
+                            Disponible = reader.GetBoolean(7),
 
                         };
 
@@ -160,7 +160,7 @@ namespace Inmo.Models
                             Uso = reader.GetString(4),
                             Tipo = reader.GetString(5),
                             Precio = reader.GetFloat(6),
-                            Estado = reader.GetString(7),
+                            Disponible = reader.GetBoolean(7),
 
                         };
                     }
@@ -198,7 +198,7 @@ namespace Inmo.Models
                             Uso = reader.GetString(4),
                             Tipo = reader.GetString(5),
                             Precio = reader.GetFloat(6),
-                            Estado = reader.GetString(7),
+                            Disponible = reader.GetBoolean(7),
                         };
                         res.Add(p);
                     }
@@ -241,7 +241,7 @@ namespace Inmo.Models
                                 Uso = reader.GetString(4),
                                 Tipo = reader.GetString(5),
                                 Precio = reader.GetFloat(6),
-                                Estado = reader.GetString(7),
+                                Disponible = reader.GetBoolean(7),
                             };
                             res.Add(p);
                         }
@@ -289,7 +289,7 @@ namespace Inmo.Models
                                 Uso = reader.GetString(4),
                                 Tipo = reader.GetString(5),
                                 Precio = reader.GetFloat(6),
-                                Estado = reader.GetString(7),
+                                Disponible = reader.GetBoolean(7),
                             };
                             res.Add(p);
                         }

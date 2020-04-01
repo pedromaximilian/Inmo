@@ -51,12 +51,35 @@ namespace Inmo.Controllers
             return View(c);
         }
 
+        public ActionResult Rescindir(int id)
+        {
+            IList<Pago> pagos = pagoData.ObtenerPorContrato(id);
+            ViewBag.Pagos = pagoData.ObtenerPorContrato(id);
+            Contrato c = contratoData.ObtenerPorId(id);
+            foreach (var item in pagos)
+            {
+                if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
+                {
+                    ViewBag.Error = "Posee pagos atrasados, regularice la situacion. No se puede rescindir el contrato";
+
+                    return View("Details",c);
+                }
+            }
+
+            c.Estado = "rescindido";
+            c.FechaFin = DateTime.Now;
+
+
+            contratoData.Modificacion(c);
+            ViewBag.Error = "El contrato ha sido rescindido";
+            return View("Details", c);
+        }
+
         // GET: Contrato/Create
         public ActionResult Create()
         {
             var inquilinos = inquilinoData.ObtenerTodos();
             var inmuebles = inmuebleData.ObtenerTodos();
-
 
             ViewBag.Inquilinos = inquilinos;
             ViewBag.Inmuebles = inmuebles;

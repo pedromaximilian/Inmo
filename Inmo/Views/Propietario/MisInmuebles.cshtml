@@ -10,8 +10,8 @@
 <table class="table" id="tabla" style="width:100%">
     <thead>
         <tr>
-            
-            
+
+
             <th>
                 @Html.DisplayNameFor(model => model.Direccion)
             </th>
@@ -28,42 +28,53 @@
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.Disponible)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ambientes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                
-                <a class="btn btn-primary" href="@Url.Action("Details", "Inmueble", new { id = item.Id })">
-                    <i class="fi-xnluxl-info"></i>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-                </a>
-            </td>
-        </tr>
-}
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ambientes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponible)
+                </td>
+                <td>
+
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Inmueble", new { id = item.Id })">
+                        <i class="fi-xnluxl-info"></i>
+
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts {
+
+    <script>
+
+        $("body > div").removeClass("container");
+        $("body > div").addClass("container-fluid");
+    </script>
+
+
+}

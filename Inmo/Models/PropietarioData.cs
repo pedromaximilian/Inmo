@@ -27,8 +27,8 @@ namespace Inmo.Models
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = $"INSERT INTO Propietarios (nombre, apellido, dni, email, telefono, disponible) " +
-                        $"VALUES (@nombre, @apellido, @dni, @email, @telefono, @disponible);" +
+                    string sql = $"INSERT INTO Propietarios (nombre, apellido, dni, email, telefono) " +
+                        $"VALUES (@nombre, @apellido, @dni, @email, @telefono);" +
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
@@ -38,7 +38,7 @@ namespace Inmo.Models
                         command.Parameters.AddWithValue("@dni", p.Dni);
                         command.Parameters.AddWithValue("@email", p.Email);
                         command.Parameters.AddWithValue("@telefono", p.Telefono);
-                        command.Parameters.AddWithValue("@disponible", p.Disponible);
+                        
                         
                         connection.Open();
                         res = Convert.ToInt32(command.ExecuteScalar());
@@ -77,7 +77,7 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE Propietarios SET Nombre=@nombre, Apellido=@apellido, dni=@dni, Email=@email, Telefono=@telefono, Disponible=@Disponible WHERE Id = @id";
+                string sql = $"UPDATE Propietarios SET Nombre=@nombre, Apellido=@apellido, dni=@dni, Email=@email, Telefono=@telefono WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -87,7 +87,6 @@ namespace Inmo.Models
                     command.Parameters.AddWithValue("@dni", p.Dni);
                     command.Parameters.AddWithValue("@email", p.Email);
                     command.Parameters.AddWithValue("@telefono", p.Telefono);
-                    command.Parameters.AddWithValue("@disponible", p.Disponible);
 
 
                     connection.Open();
@@ -120,7 +119,7 @@ namespace Inmo.Models
                             Dni = reader.GetString(3),
                             Email = reader.GetString(4),
                             Telefono = reader.GetString(5),
-                            Disponible = reader.GetBoolean(5),
+                            
 
                         };
                         res.Add(p);
@@ -154,7 +153,7 @@ namespace Inmo.Models
                             Dni = reader.GetString(3),
                             Email = reader.GetString(4),
                             Telefono = reader.GetString(5),
-                            Disponible = reader.GetBoolean(6),
+                            
 
                         };
                     }

@@ -16,7 +16,8 @@ namespace Inmo.Models
         public string Uso { get; set; }
         public string Tipo { get; set; }
         public float Precio { get; set; }
-        public string Estado { get; set; }
+
+        public bool Disponible { get; set; }
 
         public Propietario Propietario;
 

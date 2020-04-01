@@ -20,10 +20,12 @@ namespace Inmo.Controllers
             this.configuration = configuration;
             inmuebleData = new InmuebleData(configuration);
             propietarioData = new PropietarioData(configuration);
+            e = new Estados();
 
         }
         private InmuebleData inmuebleData;
         private PropietarioData propietarioData;
+        private Estados e;
 
         // GET: Inmueble
         public ActionResult Index()
@@ -44,6 +46,10 @@ namespace Inmo.Controllers
         // GET: Inmueble/Create
         public ActionResult Create()
         {
+
+            
+            ViewBag.Tipos = e.tipoInmueble();
+            ViewBag.Usos = e.usoInmueble();
             var lista = propietarioData.ObtenerTodos();
 
             ViewBag.lista = lista;
@@ -72,7 +78,8 @@ namespace Inmo.Controllers
         public ActionResult Edit(int id)
         {
             var lista = propietarioData.ObtenerTodos();
-
+            ViewBag.Tipos = e.tipoInmueble();
+            ViewBag.Usos = e.usoInmueble();
             ViewBag.lista = lista;
             var p = inmuebleData.ObtenerPorId(id);
             return View(p);
