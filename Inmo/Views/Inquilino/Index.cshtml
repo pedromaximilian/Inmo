@@ -4,15 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Inquilino</h1>
+<h1>Inquilinos</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Agregar Nuevo</a>
+    <a asp-action="Create" class="btn btn-primary">Agregar Inquilino</a>
 </p>
 <table class="table" id="tabla" style="width:100%">
     <thead>
         <tr>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -33,38 +33,50 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-            <td>
-                <a class="btn btn-primary" href="@Url.Action("Details", "Inquilino", new { id = item.Id })">
-                    <i class="fi-xnluxl-info"></i>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dni)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
 
-                </a>
-                <a class="btn btn-warning" href="@Url.Action("Edit", "Inquilino", new { id = item.Id })">
-                    <i class="fi-xnluxl-pen-solid"></i>
-                </a>
-                <a class="btn btn-success" href="@Url.Action("MisContratos", "Inquilino", new { id = item.Id })">
-                    <i class="fi-xnluxl-home"></i>
-                </a>
-            </td>
-        </tr>
-}
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Inquilino", new { id = item.Id })">
+                        <i class="fi-xnluxl-info"></i>
+
+                    </a>
+                    <a class="btn btn-warning" href="@Url.Action("Edit", "Inquilino", new { id = item.Id })">
+                        <i class="fi-xnluxl-pen-solid"></i>
+                    </a>
+                    <a class="btn btn-success" href="@Url.Action("MisContratos", "Inquilino", new { id = item.Id })">
+                        <i class="fi-xnluxl-home"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+
+    <script>
+
+        $("body > div").removeClass("container");
+        $("body > div").addClass("container-fluid");
+    </script>
+
+
+}

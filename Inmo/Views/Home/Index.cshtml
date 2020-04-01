@@ -6,3 +6,44 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+@Html.Partial("_InmueblesPartial", (IEnumerable<Inmo.Models.Inmueble>)ViewBag.Inmuebles)
+
+
+<input type="button" name="button" id="boton" value="Llamar" />
+
+
+<div id="listado" class="listado">
+
+</div>
+
+@section Scripts {
+    
+    <script>
+        $(document).ready(function () {
+            $("#boton").click(function () {
+
+
+                $.ajax({
+                    url: "@Url.Action("BuscaInmuebles", "Contrato")",
+                    type: "GET",
+                    data: {
+                        fecha1: "2020/05/09",
+                        fecha2: "2020/05/010"
+                    },
+                    error: function (response) {
+                        console.log("Fallo: ");
+                    },
+                    success: function (response) {
+                        console.log("Exito!");
+
+                        $("#listadoInm").html(response);
+                    }
+                });
+            })
+        });
+
+    </script>
+
+}

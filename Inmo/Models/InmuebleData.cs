@@ -207,5 +207,112 @@ namespace Inmo.Models
             }
             return res;
         }
+
+
+        public IList<Inmueble> disponiblesPorFechas(string inicio, string fin)
+        {
+            List<Inmueble> res = new List<Inmueble>();
+            Inmueble p = null;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+               
+
+                string sql2 = "SELECT * FROM inmuebles i WHERE i.id NOT IN( SELECT I.id FORM from contratos c INNER JOIN inmuebles i ON i.id = c.inmuebleId " +
+                    "WHERE (@inicio <= c.fecha_fin) AND (@fin >= c.fecha_inicio))";
+
+                try
+                {
+                    using (MySqlCommand command = new MySqlCommand(sql2, connection))
+                    {
+                        command.Parameters.Add("@inicio", MySqlDbType.String).Value = inicio;
+                        command.Parameters.Add("@fin", MySqlDbType.String).Value = fin;
+
+                        command.CommandType = CommandType.Text;
+                        connection.Open();
+                        var reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            p = new Inmueble
+                            {
+                                Id = reader.GetInt32(0),
+                                PropietarioId = reader.GetInt32(1),
+                                Direccion = reader.GetString(2),
+                                Ambientes = reader.GetInt32(3),
+                                Uso = reader.GetString(4),
+                                Tipo = reader.GetString(5),
+                                Precio = reader.GetFloat(6),
+                                Estado = reader.GetString(7),
+                            };
+                            res.Add(p);
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+
+                    throw;
+                }
+            }
+            return res;
+        }
+
+        public Boolean validaFecha(string inicio, string fin, int id)
+        {
+            List<Inmueble> res = new List<Inmueble>();
+            Inmueble p = null;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+
+
+                string sql2 = "SELECT * FROM inmuebles i WHERE i.id = @id AND i.id NOT IN(SELECT I.id FORM from contratos c INNER JOIN inmuebles i ON i.id = c.inmuebleId WHERE (@inicio <= c.fecha_fin) AND (@fin >= c.fecha_inicio))";
+
+                try
+                {
+                    using (MySqlCommand command = new MySqlCommand(sql2, connection))
+                    {
+                        command.Parameters.Add("@inicio", MySqlDbType.String).Value = inicio;
+                        command.Parameters.Add("@fin", MySqlDbType.String).Value = fin;
+                        command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+                        command.CommandType = CommandType.Text;
+                        connection.Open();
+                        var reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            p = new Inmueble
+                            {
+                                Id = reader.GetInt32(0),
+                                PropietarioId = reader.GetInt32(1),
+                                Direccion = reader.GetString(2),
+                                Ambientes = reader.GetInt32(3),
+                                Uso = reader.GetString(4),
+                                Tipo = reader.GetString(5),
+                                Precio = reader.GetFloat(6),
+                                Estado = reader.GetString(7),
+                            };
+                            res.Add(p);
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+
+                    throw;
+                }
+            }
+
+            if (res.Count<1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+
+        }
     }
 }

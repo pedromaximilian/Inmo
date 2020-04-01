@@ -12,7 +12,7 @@
 <table class="table" id="tabla" style="width:100%">
     <thead>
         <tr>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -32,46 +32,59 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                <a class="btn btn-primary" href="@Url.Action("Details", "Propietario", new { id = item.Id })">
-                    <i class="fi-xnluxl-info"></i>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-                </a>
-                <a class="btn btn-warning" href="@Url.Action("Edit", "Propietario", new { id = item.Id })">
-                    <i class="fi-xnluxl-pen-solid"></i>
-                </a>
-                <a class="btn btn-success" href="@Url.Action("MisInmuebles", "Propietario", new { id = item.Id })">
-                    <i class="fi-xnluxl-home"></i>
-                </a>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dni)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Propietario", new { id = item.Id })">
+                        <i class="fi-xnluxl-info"></i>
 
-
-                <!--
-                <a class="btn btn-primary" href="@Url.Action("Delete", "Propietario", new { id = item.Id })">
-                    <i class="fi-swsux2-trash-bin"></i>
-                </a>
-                -->
+                    </a>
+                    <a class="btn btn-warning" href="@Url.Action("Edit", "Propietario", new { id = item.Id })">
+                        <i class="fi-xnluxl-pen-solid"></i>
+                    </a>
+                    <a class="btn btn-success" href="@Url.Action("MisInmuebles", "Propietario", new { id = item.Id })">
+                        <i class="fi-xnluxl-home"></i>
+                    </a>
 
 
-            </td>
-        </tr>
-}
+                    <!--
+                    <a class="btn btn-primary" href="@Url.Action("Delete", "Propietario", new { id = item.Id })">
+                        <i class="fi-swsux2-trash-bin"></i>
+                    </a>
+                    -->
+
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+@section Scripts {
+
+    <script>
+
+        $("body > div").removeClass("container");
+        $("body > div").addClass("container-fluid");
+    </script>
+
+
+}

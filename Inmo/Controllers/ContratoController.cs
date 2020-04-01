@@ -74,12 +74,11 @@ namespace Inmo.Controllers
             try
             {
 
-                if (ModelState.IsValid)
+                bool validaFecha = inmuebleData.validaFecha(c.FechaInicio.ToShortDateString(), c.FechaFin.ToShortDateString(), c.InmuebleId);
+
+                if (ModelState.IsValid && validaFecha)
                 {
                     contratoId = contratoData.Alta(c);
-
-
-
                     IEnumerable<DateTime> lista = MesesEntreDias(c.FechaInicio, c.FechaFin);
 
                     foreach (var item in lista) {
@@ -91,19 +90,11 @@ namespace Inmo.Controllers
                         p.Numero = i;
                         i++;
                         pagoData.Alta(p);
-
-
                     }
                     return RedirectToAction(nameof(Index));
-
-
-
-
                 }
                 var inquilinos = inquilinoData.ObtenerTodos();
                 var inmuebles = inmuebleData.ObtenerTodos();
-
-
                 ViewBag.Inquilinos = inquilinos;
                 ViewBag.Inmuebles = inmuebles;
                 return View(c);
@@ -131,6 +122,65 @@ namespace Inmo.Controllers
             }
 
         }
+
+        public ActionResult Renovar(int id) {
+
+            Contrato c = contratoData.ObtenerPorId(id);
+
+            
+
+            return View("Renovar", c);
+        }
+
+
+        // POST: Contrato/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RenovarCrear(Contrato c)
+        {
+            int contratoId;
+            int i = 1;
+
+            try
+            {
+
+                bool validaFecha = inmuebleData.validaFecha(c.FechaInicio.ToString("yyyy-MM-dd"), c.FechaFin.ToString("yyyy-MM-dd"), c.InmuebleId);
+
+                if (ModelState.IsValid && validaFecha)
+                {
+                    contratoId = contratoData.Alta(c);
+                    IEnumerable<DateTime> lista = MesesEntreDias(c.FechaInicio, c.FechaFin);
+
+                    foreach (var item in lista)
+                    {
+                        Pago p = new Pago();
+                        p.ContratoId = contratoId;
+                        p.Estado = "pendiente";
+                        p.FechaVencimiento = item.Date.Date;
+                        p.Importe = c.Monto;
+                        p.Numero = i;
+                        i++;
+                        pagoData.Alta(p);
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                var inquilinos = inquilinoData.ObtenerTodos();
+                var inmuebles = inmuebleData.ObtenerTodos();
+                ViewBag.Inquilinos = inquilinos;
+                ViewBag.Inmuebles = inmuebles;
+                ViewBag.Error = "No disponible en las fechas solicitadas. Puede ir a Contrato>Nuevo para consultar fechas";
+                return View("Renovar", c);
+
+
+
+
+            }
+            catch (MySqlException e)
+            {
+                return View();
+            }
+        }
+
 
         // GET: Contrato/Edit/5
         public ActionResult Edit(int id)
@@ -180,24 +230,33 @@ namespace Inmo.Controllers
         }
 
 
-        
-        public JsonResult buscar(string contrato)
+
+        public ActionResult BuscaInmuebles(DateTime inicio, DateTime fin)
         {
-            Contrato contrato1 = contratoData.ObtenerPorId(25);
 
-            return Json(contrato1);
-
+            IEnumerable<Inmueble> i = inmuebleData.ObtenerTodos();
+            return PartialView("_InmueblesPartial", i);
 
         }
 
-        
-        public ActionResult buscar2(DateTime fecha1, DateTime fecha2)
+        public ActionResult buscar2(String fecha1, String fecha2)
         {
 
-
-            Contrato contrato1 = contratoData.ObtenerPorId(25);
-
-            return Json(contrato1);
+            try
+            {
+                if (DateTime.Parse(fecha1) < DateTime.Now || (DateTime.Parse(fecha1) >= DateTime.Parse(fecha2)))
+                {
+                    return PartialView("_ErrorPartial", (ViewBag.msj = "No hay resultados para su busqueda o ha ingresado mal las fechas"));
+                }
+                else {
+                    IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(fecha1, fecha2);
+                    return PartialView("_InmueblesPartial", i);
+                }
+            }
+            catch (Exception)
+            {
+                return PartialView("_ErrorPartial", (ViewBag.msj = "No hay resultados para su busqueda o ha ingresado mal las fechas"));
+            }
         }
     }
 

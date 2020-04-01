@@ -6,22 +6,38 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Inmo.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Inmo.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        private ContratoData contratoData;
+        public InmuebleData InmuebleData { get; set; }
+
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            this.configuration = configuration;
+
+            contratoData = new ContratoData(configuration);
+            InmuebleData = new InmuebleData(configuration);
+
         }
 
         public IActionResult Index()
         {
+            ViewBag.Contratos = contratoData.ObtenerTodos();
+            ViewBag.Inmuebles = InmuebleData.ObtenerTodos();
+
             return View();
         }
+
+
+
 
         public IActionResult Privacy()
         {

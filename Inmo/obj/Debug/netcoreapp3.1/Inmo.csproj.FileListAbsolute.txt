@@ -247,7 +247,6 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Inmo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Create.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Delete.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Details.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Edit.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -262,10 +261,6 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Inquilino\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Inquilino\MisContratos.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Pago\Index.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Create.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Delete.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Details.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Edit.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\MisInmuebles.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
@@ -282,3 +277,10 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\stat
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Inmo.dll
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Inmo.pdb
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Inmo.genruntimeconfig.cache
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_InmueblesPartial.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ErrorPartial.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Create.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Edit.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Details.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Edit.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\Renovar.cshtml.g.cs

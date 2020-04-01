@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Inmo.Models.Inmueble>
+
+
+<table class="table" id="tablaAjax">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ambientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            
+            <td>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script>
+
+    $('#tablaAjax').DataTable();
+    $('td').click(function () {
+
+
+        table = $('#tablaAjax').DataTable();
+        
+        var data = table.row($(this).parents('tr')).data();
+        alert(data[0] + " - " + data[1]);
+        valor = data[0];
+        $('.inmuebleId').val(data[0])
+        $('.inmuebleNombre').text(data[1])
+        $('.inmuebleAmbientes').text("Ambientes: " + data[2])
+        $('.inmuebleUso').text("Uso: " + data[3])
+        $('.inmueblePrecio').val(data[5])
+        $('#modalInmueble').modal('toggle')
+
+        var inicio = $('.inicioAlquiler').val()
+        var fin = $('.finAlquiler').val()
+        $(".start").hide()
+        $(".end").hide();
+
+
+
+        inicio1 = new Date(inicio);
+        var d = inicio1.getDate();
+        var m = inicio1.getMonth();
+        m += 1;  // JavaScript months are 0-11
+        var y = inicio1.getFullYear();
+
+        inicio2 = new Date(inicio);
+        var d2 = inicio2.getDate();
+        var m2 = inicio2.getMonth();
+        m2 += 1;  // JavaScript months are 0-11
+        var y2 = inicio2.getFullYear();
+
+
+
+        $('.seleccionInicio').text("Fecha Inicio: " + d + "." + m + "." + y)
+        $('.seleccionFin').text("Fecha Fin: " + d2 + "." + m2 + "." + y2)
+    });
+
+
+    $('#tabla').DataTable();
+</script>
