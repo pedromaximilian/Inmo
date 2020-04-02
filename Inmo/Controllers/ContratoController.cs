@@ -258,7 +258,7 @@ namespace Inmo.Controllers
         {
 
             IEnumerable<Inmueble> i = inmuebleData.ObtenerTodos();
-            return PartialView("_InmueblesPartial", i);
+            return PartialView("_InmueblesDisponiblesPartial", i);
 
         }
 
@@ -267,14 +267,18 @@ namespace Inmo.Controllers
 
             try
             {
-                if (DateTime.Parse(fecha1) < DateTime.Now || (DateTime.Parse(fecha1) >= DateTime.Parse(fecha2)))
+                if (DateTime.Parse(fecha1) < DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
                 {
-                    return PartialView("_ErrorPartial", (ViewBag.msj = "No hay resultados para su busqueda o ha ingresado mal las fechas"));
+                    return PartialView("_ErrorPartial", (ViewBag.msj = "La fecha inicio no puede ser inferior a hoy"));
                 }
-                else {
+                if (DateTime.Parse(fecha1) > DateTime.Parse(fecha2))
+                {
+                    return PartialView("_ErrorPartial", (ViewBag.msj = "La fecha inicio no puede ser superior a la fecha de fin"));
+                }
+
                     IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(fecha1, fecha2);
                     return PartialView("_InmueblesPartial", i);
-                }
+  
             }
             catch (Exception)
             {

@@ -214,5 +214,39 @@ namespace Inmo.Models
             }
             return res;
         }
+
+
+        public IList<Pago> ObtenerTodosHoy()
+        {
+            IList<Pago> res = new List<Pago>();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string sql = $"SELECT * FROM pagos Where fechaPago = @fechaPago";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@fechaPago", MySqlDbType.DateTime).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Pago p = new Pago
+                        {
+                            Id = reader.GetInt32(0),
+                            ContratoId = reader.GetInt32(1),
+                            Numero = reader.GetInt32(2),
+                            FechaVencimiento = reader.GetDateTime(3),
+                            FechaPago = reader.GetDateTime(4),
+                            Importe = reader.GetDecimal(5),
+                            Estado = reader.GetString(6)
+
+                        };
+                        res.Add(p);
+                    }
+                    connection.Close();
+                }
+            }
+            return res;
+        }
     }
 }

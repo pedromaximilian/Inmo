@@ -2,16 +2,73 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>@ViewBag.Disponibles</h3>
+
+                <p>
+                    Disponibles
+                </p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-home"></i>
+            </div>
+            <a href="#" class="small-box-footer statDisponible">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>@ViewBag.Total<sup style="font-size: 20px"></sup></h3>
+
+                <p>Inmuebles alquilados</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer statAlquilados">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.Caja</h3>
+
+                <p>Caja diaria</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-cash"></i>
+            </div>
+            <a href="#" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>@ViewBag.Vencidos</h3>
+
+                <p>Pagos vencidos</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-alert-circled"></i>
+            </div>
+            <a href="#" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
 </div>
 
 
-@Html.Partial("_InmueblesPartial", (IEnumerable<Inmo.Models.Inmueble>)ViewBag.Inmuebles)
-
-
-<input type="button" name="button" id="boton" value="Llamar" />
 
 
 <div id="listado" class="listado">
@@ -19,31 +76,50 @@
 </div>
 
 @section Scripts {
-    
+
     <script>
         $(document).ready(function () {
-            $("#boton").click(function () {
-
-
+            $(".statDisponible").click(function (e) {
+                e.preventDefault()
                 $.ajax({
-                    url: "@Url.Action("BuscaInmuebles", "Contrato")",
+                    url: "@Url.Action("Disponibles", "Home")",
                     type: "GET",
-                    data: {
-                        fecha1: "2020/05/09",
-                        fecha2: "2020/05/010"
-                    },
+                    
                     error: function (response) {
                         console.log("Fallo: ");
                     },
                     success: function (response) {
                         console.log("Exito!");
-
-                        $("#listadoInm").html(response);
+                        
+                        $("#listado").html(response).fadeIn(2000);
                     }
                 });
             })
-        });
 
+
+
+
+            $(".test").click(function (e) {
+                e.preventDefault()
+                $.ajax({
+                    url: "@Url.Action("Alquilados", "Home")",
+                    type: "GET",
+                    
+                    error: function (response) {
+                        console.log("Fallo: ");
+                    },
+                    success: function (response) {
+                        console.log("Exito!");
+                        
+                        $("#listado").html(response).fadeIn(2000);
+                    }
+                });
+            })
+
+
+
+
+        });
     </script>
 
 }

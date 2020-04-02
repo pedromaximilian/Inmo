@@ -211,8 +211,16 @@ namespace Inmo.Models
 
         public IList<Inmueble> disponiblesPorFechas(string inicio, string fin)
         {
+
+
             List<Inmueble> res = new List<Inmueble>();
             Inmueble p = null;
+
+            if (DateTime.Parse(inicio) > DateTime.Parse(fin))
+            {
+                return res;
+            }
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                

@@ -16,7 +16,8 @@ namespace Inmo.Controllers
         private readonly IConfiguration configuration;
 
         private ContratoData contratoData;
-        public InmuebleData InmuebleData { get; set; }
+        public InmuebleData inmuebleData;
+        public PagoData pagoData;
 
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
@@ -24,14 +25,44 @@ namespace Inmo.Controllers
             this.configuration = configuration;
 
             contratoData = new ContratoData(configuration);
-            InmuebleData = new InmuebleData(configuration);
+            inmuebleData = new InmuebleData(configuration);
+            pagoData = new PagoData(configuration);
 
         }
 
         public IActionResult Index()
         {
-            ViewBag.Contratos = contratoData.ObtenerTodos();
-            ViewBag.Inmuebles = InmuebleData.ObtenerTodos();
+            IEnumerable<Inmueble> total = inmuebleData.ObtenerTodos();
+
+            IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+            ViewBag.Disponibles = i.Count();
+            ViewBag.Total = total.Count() - i.Count();
+
+            decimal caja = 0;
+
+            IEnumerable<Pago> cash = pagoData.ObtenerTodosHoy();
+
+            foreach (var item in cash)
+            {
+                if (item.Estado =="pagado")
+                {
+                    caja += item.Importe;
+                }
+            }
+
+            ViewBag.Caja = caja;
+
+            int vencidos = 0;
+            foreach (var item in pagoData.ObtenerTodos())
+            {
+                if (item.FechaVencimiento< DateTime.Now && item.Estado != "pagado")
+                {
+                    vencidos++;
+                }
+            }
+
+            ViewBag.Vencidos = vencidos;
+            
 
             return View();
         }
@@ -49,5 +80,28 @@ namespace Inmo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+        public ActionResult Disponibles()
+        {
+            try
+            {
+                IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+
+
+
+                return PartialView("_InmueblesTablaPartial", i);
+
+            }
+            catch (Exception)
+            {
+
+                return PartialView("_ErrorPartial", (ViewBag.msj = "No hay resultados para su busqueda. Contacte al administrador"));
+            }
+
+        }
+
+
     }
 }
