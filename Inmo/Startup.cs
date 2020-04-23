@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +25,22 @@ namespace Inmo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>//el sitio web valida con cookie
+                {
+                    options.LoginPath = "/Home/Login";
+                    options.LogoutPath = "/Home/Logout";
+                    options.AccessDeniedPath = "/Home/Restringido";
+                });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrador", policy =>
+                policy.RequireClaim(ClaimTypes.Role, "Administrador")
+                );
+            });
+
+
+
             services.AddControllersWithViews();
         }
 
@@ -41,11 +59,11 @@ namespace Inmo
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

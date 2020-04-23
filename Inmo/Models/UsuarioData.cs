@@ -8,40 +8,37 @@ using System.Threading.Tasks;
 
 namespace Inmo.Models
 {
-    public class InquilinoData
+    public class UsuarioData
     {
         private readonly string connectionString;
         private readonly IConfiguration configuration;
-        
 
-        public InquilinoData(IConfiguration configuration)
+
+        public UsuarioData(IConfiguration configuration)
         {
             this.configuration = configuration;
             connectionString = configuration["ConnectionStrings:DefaulConnection"];
-            
+
 
         }
 
-        public int Alta(Inquilino p)
+        public int Alta(Usuario p)
         {
             int res = -1;
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = $"INSERT INTO inquilinos (nombre, apellido, dni, telefono, email, lugar_trabajo, estado) " +
-                        $"VALUES (@nombre, @apellido, @dni, @telefono, @email, @lugar_trabajo, 'activo');" +
+                    string sql = $"INSERT INTO usuarios (mail, pass, salt, rolId, estado) " +
+                        $"VALUES (@mail, @pass, @salt, @rol, 1);" +
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
                         command.CommandType = CommandType.Text;
-                        command.Parameters.AddWithValue("@nombre", p.Nombre);
-                        command.Parameters.AddWithValue("@apellido", p.Apellido);
-                        command.Parameters.AddWithValue("@dni", p.Dni);
-                        command.Parameters.AddWithValue("@telefono", p.Telefono);
-                        command.Parameters.AddWithValue("@email", p.Email);
-                        command.Parameters.AddWithValue("@lugar_trabajo", p.LugarTrabajo);
-
+                        command.Parameters.AddWithValue("@nombre", p.Mail);
+                        command.Parameters.AddWithValue("@apellido", p.Pass);
+                        command.Parameters.AddWithValue("@dni", p.Salt);
+                        command.Parameters.AddWithValue("@telefono", p.RolId);
 
                         connection.Open();
                         res = Convert.ToInt32(command.ExecuteScalar());
@@ -63,7 +60,7 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE Inquilinos SET estado='borrado' WHERE Id = @id";
+                string sql = $"UPDATE usuarios SET estado = 0 WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -75,23 +72,23 @@ namespace Inmo.Models
             }
             return res;
         }
-        public int Modificacion(Inquilino p)
+        public int Modificacion(Usuario p)
         {
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE inquilinos SET nombre=@nombre, apellido=@apellido, dni=@dni, telefono=@telefono, email=@email, lugar_trabajo=@lugar_trabajo  WHERE Id = @id";
+                string sql = $"UPDATE usuarios SET mail=@mail, pass=@pass, salt=@salt, rolId=@rolId, estado=@estado WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@id", p.Id);
-                    command.Parameters.AddWithValue("@nombre", p.Nombre);
-                    command.Parameters.AddWithValue("@apellido", p.Apellido);
-                    command.Parameters.AddWithValue("@dni", p.Dni);
-                    command.Parameters.AddWithValue("@telefono", p.Telefono);
-                    command.Parameters.AddWithValue("@email", p.Email);
-                    command.Parameters.AddWithValue("@lugar_trabajo", p.LugarTrabajo);
+                    command.Parameters.AddWithValue("@nombre", p.Mail);
+                    command.Parameters.AddWithValue("@apellido", p.Pass);
+                    command.Parameters.AddWithValue("@dni", p.Salt);
+                    command.Parameters.AddWithValue("@telefono", p.RolId);
+                    command.Parameters.AddWithValue("@email", p.Estado);
                     
+
 
                     connection.Open();
                     res = command.ExecuteNonQuery();
@@ -101,14 +98,14 @@ namespace Inmo.Models
             return res;
         }
 
-        public IList<Inquilino> ObtenerTodos()
+        public IList<Usuario> ObtenerTodos()
         {
             try
             {
-                IList<Inquilino> res = new List<Inquilino>();
+                IList<Usuario> res = new List<Usuario>();
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = $"SELECT * FROM Inquilinos";
+                    string sql = $"SELECT * FROM usuarios";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
@@ -118,16 +115,15 @@ namespace Inmo.Models
                         List<Contrato> contratos = null;
                         while (reader.Read())
                         {
-                            Inquilino p = new Inquilino
+                            Usuario p = new Usuario
                             {
                                 Id = reader.GetInt32(0),
-                                Nombre = reader.GetString(1),
-                                Apellido = reader.GetString(2),
-                                Dni = reader.GetString(3),
-                                Telefono = reader.GetString(4),
-                                Email = reader.GetString(5),
-                                LugarTrabajo = reader.GetString(6),
-                                Estado = reader.GetString(7),
+                                Mail = reader.GetString(1),
+                                Pass = reader.GetString(2),
+                                Salt = reader.GetString(3),
+                                RolId = reader.GetInt16(4),
+                                Estado = reader.GetInt16(5),
+                                
 
 
                             };
@@ -148,12 +144,12 @@ namespace Inmo.Models
             }
         }
 
-        public Inquilino ObtenerPorId(int id)
+        public Usuario ObtenerPorId(int id)
         {
-            Inquilino p = null;
+            Usuario p = null;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"SELECT * FROM inquilinos" +
+                string sql = $"SELECT * FROM usuarios" +
                     $" WHERE Id=@id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -163,16 +159,14 @@ namespace Inmo.Models
                     var reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        p = new Inquilino
+                        p = new Usuario
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1),
-                            Apellido = reader.GetString(2),
-                            Dni = reader.GetString(3),
-                            Telefono = reader.GetString(4),
-                            Email = reader.GetString(5),
-                            LugarTrabajo = reader.GetString(6),
-                            Estado = reader.GetString(7),
+                            Mail = reader.GetString(1),
+                            Pass = reader.GetString(2),
+                            Salt = reader.GetString(3),
+                            RolId = reader.GetInt16(4),
+                            Estado = reader.GetInt16(5),
 
                         };
                     }
@@ -182,40 +176,38 @@ namespace Inmo.Models
             return p;
         }
 
-        public IList<Inquilino> BuscarPor(string columna, string valor)
+        public Usuario ObtenerPorMail(string mail)
         {
-            List<Inquilino> res = new List<Inquilino>();
-            Inquilino p = null;
+            Usuario p = null;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"SELECT * FROM inquilinos WHERE @columna=@valor";
+                string sql = $"SELECT * FROM usuarios" +
+                    $" WHERE mail like @mail";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.Add("@columna", MySqlDbType.VarChar).Value = columna;
-                    command.Parameters.Add("@valor", MySqlDbType.VarChar).Value = valor;
+                    command.Parameters.Add("@mail", MySqlDbType.String).Value = mail;
                     command.CommandType = CommandType.Text;
                     connection.Open();
                     var reader = command.ExecuteReader();
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        p = new Inquilino
+                        p = new Usuario
                         {
                             Id = reader.GetInt32(0),
-                            Nombre = reader.GetString(1),
-                            Apellido = reader.GetString(2),
-                            Dni = reader.GetString(3),
-                            Telefono = reader.GetString(4),
-                            Email = reader.GetString(5),
-                            LugarTrabajo = reader.GetString(6),
-                            Estado = reader.GetString(7),
+                            Mail = reader.GetString(1),
+                            Pass = reader.GetString(2),
+                            Salt = reader.GetString(3),
+                            RolId = reader.GetInt16(4),
+                            Estado = reader.GetInt16(5),
 
                         };
-                        res.Add(p);
                     }
                     connection.Close();
                 }
             }
-            return res;
+            return p;
         }
+
+
     }
 }
