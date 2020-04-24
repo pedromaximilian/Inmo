@@ -18,18 +18,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Mail)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salt)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.RolId)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -42,22 +35,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Mail)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pass)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salt)
-            </td>
+            
+            
             <td>
                 @Html.DisplayFor(modelItem => item.RolId)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a class="btn btn-primary" href="@Url.Action("Details", "Usuario", new { id = item.Id })">
+                    <i class="fi-xnluxl-info"></i>
+
+                </a>
+                <a class="btn btn-warning" href="@Url.Action("Edit", "Usuario", new { id = item.Id })">
+                    <i class="fi-xnluxl-pen-solid"></i>
+                </a>
             </td>
         </tr>
 }

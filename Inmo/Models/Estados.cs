@@ -21,7 +21,7 @@ namespace Inmo.Models
             lista.Add(e1);
             Estados e2 = new Estados
             {
-                id = 1,
+                id = 2,
                 estado = "rescindido",
             };
             lista.Add(e2);
@@ -41,7 +41,7 @@ namespace Inmo.Models
             lista.Add(e1);
             Estados e2 = new Estados
             {
-                id = 1,
+                id = 2,
                 estado = "pagado",
             };
             lista.Add(e2);

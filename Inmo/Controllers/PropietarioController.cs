@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inmo.Controllers
 {
-    public class PropietarioController : Controller
+    public class PropietarioController : BaseController
         
     {
 

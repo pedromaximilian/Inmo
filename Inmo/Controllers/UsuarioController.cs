@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Inmo.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -10,19 +11,20 @@ using MySql.Data.MySqlClient;
 
 namespace Inmo.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BaseController
 
     {
 
         private readonly IConfiguration configuration;
         private UsuarioData usuarioData;
+        private Roles roles;
 
 
         public UsuarioController(IConfiguration configuration)
         {
             this.configuration = configuration;
             usuarioData = new UsuarioData(configuration);
-
+            roles = new Roles();
 
         }
 
@@ -44,20 +46,41 @@ namespace Inmo.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
+
+            ViewBag.roles = roles.getAll();
             return View();
         }
 
         // POST: Usuario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Usuario p)
+        public ActionResult Create(Usuario u)
         {
             try
             {
-                int res = usuarioData.Alta(p);
-                return RedirectToAction(nameof(Index));
+
+                if (ModelState.IsValid)
+                {
+                    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: u.Pass,
+                    salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+                    prf: KeyDerivationPrf.HMACSHA1,
+                    iterationCount: 1000,
+                    numBytesRequested: 256 / 8
+                    ));
+                    u.Pass = hashed;
+
+                    usuarioData.Alta(u);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(u);
+                }
             }
-            catch
+
+            catch (Exception e)
             {
                 Console.WriteLine("Estoy en la excepcion");
                 return View();

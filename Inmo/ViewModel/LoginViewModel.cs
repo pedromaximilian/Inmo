@@ -14,7 +14,7 @@ namespace Inmo.ViewModel
 
         [Required]
         [DataType(DataType.Password)]
-        public string pass { get; set; }
+        public string Pass { get; set; }
 
     }
 }

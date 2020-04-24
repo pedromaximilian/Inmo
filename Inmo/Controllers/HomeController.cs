@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Inmo.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration configuration;

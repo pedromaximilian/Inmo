@@ -11,7 +11,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inmo.Controllers
 {
-    public class ContratoController : Controller
+    public class ContratoController : BaseController
     {
         private readonly IConfiguration configuration;
         private InmuebleData inmuebleData;

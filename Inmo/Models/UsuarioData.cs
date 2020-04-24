@@ -29,16 +29,16 @@ namespace Inmo.Models
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = $"INSERT INTO usuarios (mail, pass, salt, rolId, estado) " +
-                        $"VALUES (@mail, @pass, @salt, @rol, 1);" +
+                    string sql = $"INSERT INTO usuarios (mail, pass, rolId) " +
+                        $"VALUES (@mail, @pass, @rol);" +
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
                         command.CommandType = CommandType.Text;
-                        command.Parameters.AddWithValue("@nombre", p.Mail);
-                        command.Parameters.AddWithValue("@apellido", p.Pass);
-                        command.Parameters.AddWithValue("@dni", p.Salt);
-                        command.Parameters.AddWithValue("@telefono", p.RolId);
+                        command.Parameters.AddWithValue("@mail", p.Mail);
+                        command.Parameters.AddWithValue("@pass", p.Pass);
+                        
+                        command.Parameters.AddWithValue("@rol", p.RolId);
 
                         connection.Open();
                         res = Convert.ToInt32(command.ExecuteScalar());
@@ -47,11 +47,10 @@ namespace Inmo.Models
                     }
                 }
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-
-                throw;
                 Console.WriteLine(e.Message);
+                throw;
             }
             return res;
         }
@@ -60,7 +59,7 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE usuarios SET estado = 0 WHERE Id = @id";
+                string sql = $"DELETE FROM usuarios WHERE usuarios.id = @id ;";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -77,18 +76,16 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE usuarios SET mail=@mail, pass=@pass, salt=@salt, rolId=@rolId, estado=@estado WHERE Id = @id";
+                string sql = $"UPDATE usuarios SET mail=@mail, pass=@pass, rolId=@rolId WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@id", p.Id);
-                    command.Parameters.AddWithValue("@nombre", p.Mail);
-                    command.Parameters.AddWithValue("@apellido", p.Pass);
-                    command.Parameters.AddWithValue("@dni", p.Salt);
-                    command.Parameters.AddWithValue("@telefono", p.RolId);
-                    command.Parameters.AddWithValue("@email", p.Estado);
+                    command.Parameters.AddWithValue("@mail", p.Mail);
+                    command.Parameters.AddWithValue("@pass", p.Pass);
                     
-
+                    command.Parameters.AddWithValue("@rolId", p.RolId);
+                    
 
                     connection.Open();
                     res = command.ExecuteNonQuery();
@@ -112,7 +109,7 @@ namespace Inmo.Models
                         command.CommandType = CommandType.Text;
                         connection.Open();
                         var reader = command.ExecuteReader();
-                        List<Contrato> contratos = null;
+                        
                         while (reader.Read())
                         {
                             Usuario p = new Usuario
@@ -120,16 +117,10 @@ namespace Inmo.Models
                                 Id = reader.GetInt32(0),
                                 Mail = reader.GetString(1),
                                 Pass = reader.GetString(2),
-                                Salt = reader.GetString(3),
-                                RolId = reader.GetInt16(4),
-                                Estado = reader.GetInt16(5),
+                                RolId = reader.GetInt32(3),
                                 
-
-
+                                
                             };
-
-
-
                             res.Add(p);
                         }
                         connection.Close();
@@ -139,7 +130,6 @@ namespace Inmo.Models
             }
             catch (MySqlException ex)
             {
-
                 throw;
             }
         }
@@ -150,7 +140,7 @@ namespace Inmo.Models
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 string sql = $"SELECT * FROM usuarios" +
-                    $" WHERE Id=@id";
+                    $" WHERE id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -164,9 +154,9 @@ namespace Inmo.Models
                             Id = reader.GetInt32(0),
                             Mail = reader.GetString(1),
                             Pass = reader.GetString(2),
-                            Salt = reader.GetString(3),
-                            RolId = reader.GetInt16(4),
-                            Estado = reader.GetInt16(5),
+                            
+                            RolId = reader.GetInt16(3),
+                            
 
                         };
                     }
@@ -196,9 +186,9 @@ namespace Inmo.Models
                             Id = reader.GetInt32(0),
                             Mail = reader.GetString(1),
                             Pass = reader.GetString(2),
-                            Salt = reader.GetString(3),
-                            RolId = reader.GetInt16(4),
-                            Estado = reader.GetInt16(5),
+                            
+                            RolId = reader.GetInt16(3),
+                            
 
                         };
                     }

@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Inmo.Models
+namespace Inmo.ViewModel
 {
-    public class Usuario
+    public class UsuarioViewModel
     {
         public int Id { get; set; }
         public string Mail { get; set; }
-        public string Pass { get; set; }
-        
-        public int RolId { get; set; }
-        
-
+        public string Rol { get; set; }
     }
 }

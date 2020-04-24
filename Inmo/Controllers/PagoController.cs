@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inmo.Controllers
 {
-    public class PagoController : Controller
+    public class PagoController : BaseController
     {
         private readonly IConfiguration configuration;
         private PagoData pagoData;

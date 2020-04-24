@@ -28,9 +28,9 @@ namespace Inmo
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>//el sitio web valida con cookie
                 {
-                    options.LoginPath = "/Home/Login";
-                    options.LogoutPath = "/Home/Logout";
-                    options.AccessDeniedPath = "/Home/Restringido";
+                    options.LoginPath = "/Login/Index";
+                    options.LogoutPath = "/Login/Logout";
+                    options.AccessDeniedPath = "/Login/Index";
                 });
             services.AddAuthorization(options =>
             {
@@ -61,9 +61,9 @@ namespace Inmo
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
