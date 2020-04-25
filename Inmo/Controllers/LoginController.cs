@@ -52,11 +52,11 @@ namespace Inmo.Controllers
                     iterationCount: 1000,
                     numBytesRequested: 256 / 8
                     ));
-                    
+
 
                     var usuario = usuarioData.ObtenerPorMail(u.Mail);
 
-                    List<Roles> roles = rol.getAll();
+
 
                     if (usuario == null || usuario.Pass != hashed)
                     {
@@ -68,8 +68,18 @@ namespace Inmo.Controllers
                     {
                         new Claim("Id", usuario.Id.ToString()),
                         new Claim(ClaimTypes.Name, usuario.Mail),
-                        new Claim(ClaimTypes.Role, roles.First(x => x.Id == usuario.RolId).Nombre)
+                        new Claim(ClaimTypes.Role, RolesData.getById(usuario.RolId).Nombre)
+
+                    
                     };
+
+                    if (RolesData.getById(usuario.RolId).Nombre == "Administrador")
+                    {
+                        claims.Add(
+                            new Claim("Admin", "Admin")
+                            );
+                    }
+
 
                     var claimsIdentity = new ClaimsIdentity(
                         claims,

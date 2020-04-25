@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Inmo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,7 @@ namespace Inmo.Controllers
         public ActionResult Create()
         {
 
-            ViewBag.roles = roles.getAll();
+            ViewBag.roles = RolesData.getAll();
             return View();
         }
 
@@ -114,6 +115,7 @@ namespace Inmo.Controllers
         }
 
         // GET: Usuario/Delete/5
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -122,16 +124,18 @@ namespace Inmo.Controllers
         // POST: Usuario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Authorize(Policy = "Administrador")]
+        public ActionResult Delete(int id, Usuario u)
         {
             try
             {
-                // TODO: Add delete logic here
+                usuarioData.Baja(id);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.Error = "No se pudo eliminar el usuario";
                 return View();
             }
         }

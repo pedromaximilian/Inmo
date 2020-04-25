@@ -35,7 +35,8 @@ namespace Inmo
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Administrador", policy =>
-                policy.RequireClaim(ClaimTypes.Role, "Administrador")
+                //policy.RequireClaim(ClaimTypes.Role, "Administrador")
+                policy.RequireClaim("Admin")
                 );
             });
 
