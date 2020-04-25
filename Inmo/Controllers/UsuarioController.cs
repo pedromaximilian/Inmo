@@ -114,18 +114,11 @@ namespace Inmo.Controllers
             }
         }
 
-        // GET: Usuario/Delete/5
-        [Authorize(Policy = "Administrador")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: Usuario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Administrador")]
-        public ActionResult Delete(int id, Usuario u)
+        public ActionResult Delete(int id, Object u)
         {
             try
             {

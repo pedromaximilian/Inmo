@@ -11,7 +11,15 @@ namespace Inmo.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+
+        [Authorize(Policy = "Administrador")]
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+
     }
-
-
 }
+
+

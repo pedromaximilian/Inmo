@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Inmo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -95,17 +96,11 @@ namespace Inmo.Controllers
             }
         }
 
-        // GET: Inquilino/Delete/5
-        public ActionResult Delete(int id)
-        {
-
-            Inquilino i = inquilinoData.ObtenerPorId(id);
-            return View(i);
-        }
 
         // POST: Inquilino/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id, Inquilino i)
         {
             try

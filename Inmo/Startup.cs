@@ -38,9 +38,10 @@ namespace Inmo
                 //policy.RequireClaim(ClaimTypes.Role, "Administrador")
                 policy.RequireClaim("Admin")
                 );
+
             });
 
-
+            
 
             services.AddControllersWithViews();
         }
