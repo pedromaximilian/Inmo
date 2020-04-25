@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inmo.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class BaseController : Controller
     {
         

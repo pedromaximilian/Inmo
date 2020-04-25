@@ -263,7 +263,6 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\MisInmuebles.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
@@ -295,3 +294,6 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavAdminPartial.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavAnonimoPartial.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavUsuarioPartial - Copia.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout - Copia.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_leftMenu.cshtml.g.cs
