@@ -291,9 +291,6 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Index.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Usuario\Details.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavAdminPartial.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavAnonimoPartial.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NavUsuarioPartial - Copia.cshtml.g.cs
-C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout - Copia.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_leftMenu.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout  Original.cshtml.g.cs

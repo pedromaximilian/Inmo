@@ -4,87 +4,99 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Propietarios</h1>
+    <div class="card card-primary">
+        <div class="card-header">
+            <a asp-action="Create" class="btn btn-secondary float-left">Agregar Propietario</a>
+            <div class="card-tools">               
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>             
+            </div>          
+        </div>
+        <div class="card-body">
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Agregar Propietario</a>
-</p>
-<table class="table" id="tabla" style="width:100%">
-    <thead>
-        <tr>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dni)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dni)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
-                </td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("Details", "Propietario", new { id = item.Id })">
-                        <i class="fi-xnluxl-info"></i>
-
-                    </a>
-                    <a class="btn btn-warning" href="@Url.Action("Edit", "Propietario", new { id = item.Id })">
-                        <i class="fi-xnluxl-pen-solid"></i>
-                    </a>
-                    <a class="btn btn-success" href="@Url.Action("MisInmuebles", "Propietario", new { id = item.Id })">
-                        <i class="fi-xnluxl-home"></i>
-                    </a>
+            <table id="tabla" class="table table-bordered table-striped dataTable" role="grid">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Apellido)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dni)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Telefono)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Dni)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                <div class="btn-group-sm">
+                                    <a class="btn btn-primary" href="@Url.Action("Details", "Propietario", new { id = item.Id })">
+                                        <i class="fas fa-eye">
+                                        </i>
 
 
-                    <!--
-                    <a class="btn btn-primary" href="@Url.Action("Delete", "Propietario", new { id = item.Id })">
-                        <i class="fi-swsux2-trash-bin"></i>
-                    </a>
-                    -->
+                                    </a>
+                                    <a class="btn btn-info" href="@Url.Action("Edit", "Propietario", new { id = item.Id })">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                    </a>
+                                    <a class="btn btn-success" href="@Url.Action("MisInmuebles", "Propietario", new { id = item.Id })">
+                                        <i class="fas fa-home"></i>
+                                    </a>
 
+                                    <a class="btn btn-danger" href="@Url.Action("Delete", "Propietario", new { id = item.Id })">
+                                        <i class="fas fa-trash">
+                                        </i>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+                        <th>@Html.DisplayNameFor(model => model.Dni)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+    </div>
+    @section Scripts {
 
-
-@section Scripts {
-
-    <script>
-
-        $("body > div").removeClass("container");
-        $("body > div").addClass("container-fluid");
-    </script>
-
-
-}
+    }
