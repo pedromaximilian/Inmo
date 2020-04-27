@@ -1,83 +1,123 @@
 ﻿@model IEnumerable<Inmo.Models.Contrato>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contratos";
 }
 
-<h1>Contratos</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Agregar Contrato</a>
-</p>
-<table class="table" id="tabla" style="width:100%">
-    <thead>
-        <tr>
+    <div class="card card-primary">
+        <div class="card-header">
+            <a asp-action="Create" class="btn btn-secondary float-left">
+                <i class="fas fa-plus-circle">
+                </i> Agregar Propietario
+            </a>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
 
-
-            <th>
-                @Html.DisplayNameFor(model => model.Inmueble.Direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Inquilino.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaFin)
-            </th>
+            <table id="tabla" class="table table-bordered table-striped dataTable" role="grid">
+                <thead>
+                    <tr>
 
 
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaInicio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaFin)
+                        </th>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Inmueble.Direccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Inquilino.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaFin)
-                </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("Details", "Contrato", new { id = item.Id })">
-                        <i class="fi-xnluxl-info"></i>
-                    </a>
-                    <a class="btn btn-info" href="@Url.Action("Renovar", "Contrato", new { id = item.Id })">
-                        <i class="fi-xnluxl-reload"></i>
-                    </a>
-                    
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Inmueble.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Inquilino.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaInicio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaFin)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Estado)
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href="@Url.Action("Details", "Contrato", new { id = item.Id })">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a class="btn btn-info" href="@Url.Action("Renovar", "Contrato", new { id = item.Id })">
+                                    <i class="fas fa-redo-alt"></i>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaInicio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaFin)
+                        </th>
+
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+
+
+
+
+
 
 @section Scripts {
 
-    <script>
 
-        $("body > div").removeClass("container");
-        $("body > div").addClass("container-fluid");
-    </script>
+   
 
 
 }

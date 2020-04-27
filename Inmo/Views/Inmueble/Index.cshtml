@@ -1,89 +1,137 @@
 ﻿@model IEnumerable<Inmo.Models.Inmueble>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inmuebles";
 }
 
-<h1>Inmuebles</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Agregar Inmueble</a>
+    <div class="card card-primary">
+        <div class="card-header">
+            <a asp-action="Create" class="btn btn-secondary float-left">
+                <i class="fas fa-plus-circle">
+                </i> Agregar Propietario
+            </a>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
 
-    <table class="table" id="tabla" style="width:100%">
-        <thead>
-            <tr>
+            <table id="tabla" class="table table-bordered table-striped dataTable" role="grid">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PropietarioId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direccion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ambientes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Uso)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tipo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Precio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Disponible)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Propietario.Nombre)
+                            </td>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Direccion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ambientes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Uso)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tipo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Precio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Disponible)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ambientes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Uso)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tipo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Precio)
+                            </td>
+                            <td>
+                                @if (item.Disponible == true)
+                                {
+                                    <span>si</span>
+                                }
+                                else { 
+                                    <span>no</span>
+                                }
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ambientes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Uso)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Disponible)
-                    </td>
-                    <td>
-                        <a class="btn btn-primary" href="@Url.Action("Details", "Inmueble", new { id = item.Id })">
-                            <i class="fi-xnluxl-info"></i>
 
-                        </a>
-                        <a class="btn btn-warning" href="@Url.Action("Edit", "Inmueble", new { id = item.Id })">
-                            <i class="fi-xnluxl-pen-solid"></i>
-                        </a>
 
-                        @*<a class="btn btn-danger" href="@Url.Action("Delete", "Inmueble", new { id = item.Id })">
-                            <i class="fi-xnluxl-trash-bin"></i>
-                        </a>*@
+                            </td>
+                            <td>
+                                <div class="btn-group-sm">
+                                    <a class="btn btn-primary" href="@Url.Action("Details", "Inmueble", new { id = item.Id })">
+                                        <i class="fas fa-eye">
+                                        </i>
 
-                    </td>
 
-                </tr>
-            }
-        </tbody>
-    </table>
+                                    </a>
+                                    <a class="btn btn-info" href="@Url.Action("Edit", "Inmueble", new { id = item.Id })">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                    </a>
+
+
+                                    <a class="btn btn-danger" href="@Url.Action("Delete", "Inmueble", new { id = item.Id })">
+                                        <i class="fas fa-trash">
+                                        </i>
+
+                                    </a>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Propietario.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Direccion)</th>
+                        <th>@Html.DisplayNameFor(model => model.Ambientes)</th>
+                        <th>@Html.DisplayNameFor(model => model.Uso)</th>
+                        <th>@Html.DisplayNameFor(model => model.Tipo)</th>
+                        <th>@Html.DisplayNameFor(model => model.Precio)</th>
+                        <th>@Html.DisplayNameFor(model => model.Disponible)</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="card-footer">
+            
+        </div>
+    </div>
+
+
+
+
 
     @section Scripts {
 
-        <script>
-
-        $("body > div").removeClass("container");
-        $("body > div").addClass("container-fluid");
-        </script>
 
 
     }

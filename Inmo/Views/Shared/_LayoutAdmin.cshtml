@@ -26,10 +26,11 @@
     <!-- Datatables css-->
 
     <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
-    
+
     <link href="~/css/responsive.dataTables.min.css" rel="stylesheet" />
     <!-- sect2 -->
     <link href="~/css/select2.min.css" rel="stylesheet" />
+    
 
 
 
@@ -168,6 +169,7 @@
         $(document).ready(function () {
             //$('#tabla').DataTable();
             $(".seleccion").select2({
+                theme: "classic",
                 placeholder: "Seleccione Un Valor",
                 allowClear: true
             });
