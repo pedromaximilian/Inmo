@@ -12,14 +12,19 @@ namespace Inmo.Controllers
     public class BaseController : Controller
     {
 
-        [Authorize(Policy = "Administrador")]
+
+        
         public ActionResult Delete(int id)
         {
+            if (!User.IsInRole("Administrador"))
+            {
+                ViewBag.Error = "No posee permisos para eliminar";
+            }
             return View();
         }
 
-
     }
+
 }
 
 

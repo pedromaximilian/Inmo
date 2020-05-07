@@ -2,11 +2,21 @@
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Administrador"))
 {
-    
-
-        Layout = "_LayoutAdmin";
 
 
-    
+    Layout = "_LayoutAdmin";
+
+
+
 }
 
+
+@if (User.Identity.IsAuthenticated)
+{
+
+
+    Layout = "_LayoutAdmin";
+
+
+
+}

@@ -294,3 +294,8 @@ C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razo
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_leftMenu.cshtml.g.cs
 C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout  Original.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Propietario\Delete.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Inmueble\MisContratos.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Contrato\vigentes.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Inmueble\Delete.cshtml.g.cs
+C:\Users\pedro\OneDrive\Documentos\GitHub\Inmo\Inmo\obj\Debug\netcoreapp3.1\Razor\Views\Imagen\Create.cshtml.g.cs

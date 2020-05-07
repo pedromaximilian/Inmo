@@ -1,6 +1,6 @@
 ﻿
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ar">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,14 +30,16 @@
     <link href="~/css/responsive.dataTables.min.css" rel="stylesheet" />
     <!-- sect2 -->
     <link href="~/css/select2.min.css" rel="stylesheet" />
-    
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles">
+
+    <link href="~/plugins/ekko-lightbox/ekko-lightbox.css" rel="stylesheet" />
 
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -55,17 +57,7 @@
                 </li>
             </ul>
 
-            <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
-                <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -97,6 +89,10 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-3">
+
+
+                    @RenderBody()
+
                     <!-- Render contenido -->
 
                     @RenderBody()
@@ -157,11 +153,14 @@
     <script src="/dist/js/demo.js"></script>
     @RenderSection("Scripts", required: false)
 
-
+<script src="~/plugins/ekko-lightbox/ekko-lightbox.js"></script>
     <script src="~/plugins/datatables/jquery.dataTables.js"></script>
     <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    
+
     <script src="~/js/select2.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
 
 
     <script>
@@ -175,60 +174,60 @@
             });
         });
 
-        $(document).ready(function () {
-            // Setup - add a text input to each footer cell
-            $('#tabla tfoot th').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" class="form-control"  placeholder=" ' + title + '" />');
-            });
 
-            // DataTable
-            var table = $('#tabla').DataTable({
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla =(",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    },
-                    "buttons": {
-                        "copy": "Copiar",
-                        "colvis": "Visibilidad"
-                    }
+        // Setup - add a text input to each footer cell
+        $('#tabla tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control"  placeholder=" ' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#tabla').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copy": "Copiar",
+                    "colvis": "Visibilidad"
+                }
+            }
+        });
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
                 }
             });
-
-            // Apply the search
-            table.columns().every(function () {
-                var that = this;
-
-                $('input', this.footer()).on('keyup change clear', function () {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
-
-            $('#tabla tfoot tr').appendTo('#tabla thead');
         });
+
+        $('#tabla tfoot tr').appendTo('#tabla thead');
+
     </script>
 
     <script>
@@ -236,10 +235,60 @@
 
             $("#" + (window.location.pathname).split("/")[1]).addClass("active");
 
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
         })
 
 
 
     </script>
+
+
+
+    @if (ViewBag.Error != null)
+    {
+        
+
+        <script>
+            $(document).ready(function () {
+
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'error',
+                    title: '@ViewBag.Error',
+                    showConfirmButton: false,
+                    timer: 4000
+                });
+
+            });
+
+        </script>
+
+    }
+
+
+    @if (ViewBag.Exito != null)
+    {
+<script>
+            $(document).ready(function () {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '@ViewBag.Exito',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            });
+
+</script>
+    }
+
+
 </body>
 </html>

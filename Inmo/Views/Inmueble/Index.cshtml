@@ -9,7 +9,7 @@
         <div class="card-header">
             <a asp-action="Create" class="btn btn-secondary float-left">
                 <i class="fas fa-plus-circle">
-                </i> Agregar Propietario
+                </i> Agregar Inmueble
             </a>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -93,13 +93,26 @@
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                     </a>
+                                    <a class="btn btn-success" href="@Url.Action("MisContratos", "Inmueble", new { id = item.Id })">
+                                        <i class="fas fa-book"></i>
 
+                                    </a>
+                                    <a class="btn btn-warning" href="/Imagen/Create/@item.Id">
+                                        <i class="fas fa-image">
+                                        </i>
+
+                                    </a>
 
                                     <a class="btn btn-danger" href="@Url.Action("Delete", "Inmueble", new { id = item.Id })">
                                         <i class="fas fa-trash">
                                         </i>
 
                                     </a>
+
+
+
+
+
                                 </div>
 
                             </td>

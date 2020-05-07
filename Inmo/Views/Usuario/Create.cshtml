@@ -11,28 +11,30 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <form asp-action="Create">
+                            <form asp-action="Create" enctype="multipart/form-data">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="form-group">
                                     <label asp-for="Mail" class="control-label"></label>
-                                    <input asp-for="Mail" class="form-control" />
+                                    <input required asp-for="Mail" class="form-control" />
                                     <span asp-validation-for="Mail" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Pass" class="control-label"></label>
-                                    <input asp-for="Pass" class="form-control" />
+                                    <input required id="pass" asp-for="Pass" class="form-control" />
                                     <span asp-validation-for="Pass" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label">Confirmar Contraseña</label>
+                                    <input required id="repass" class="form-control" />
+                                    <span id='message'></span>
 
-
-
-
+                                </div>
 
                                 <div class="form-group">
                                     <label asp-for="RolId" class="control-label"></label>
 
-                                    <select asp-for="RolId" data-placeholder="Seleccione" data-allow-clear="1" class="seleccion form-control">
+                                    <select required asp-for="RolId" data-placeholder="Seleccione" data-allow-clear="1" class="seleccion form-control">
                                         <option></option>
 
                                         @if (ViewBag.roles != null)
@@ -48,18 +50,19 @@
                                         {
                                             <option value="0" selected>Seleccione un valor</option>
                                         }
-
-
-
-
                                     </select>
                                     <span asp-validation-for="RolId" class="text-danger"></span>
                                 </div>
 
+                                <div class="form-group">
+                                    <label asp-for="AvatarFile" class="control-label"></label>
+                                    <input id="AvatarFile" asp-for="AvatarFile" class="form-control" />
+                                    <span asp-validation-for="AvatarFile" class="text-danger"></span>
+                                </div>
 
 
                                 <div class="form-group">
-                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    <input id="guardar" type="submit" value="Guardar" class="btn btn-primary" />
                                 </div>
                             </form>
                         </div>
@@ -84,4 +87,18 @@
 
         @section Scripts {
             @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+        $('#pass, #repass').on('keyup', function () {
+            if ($('#pass').val() == $('#repass').val()) {
+
+                $('#message').html('Coincide').removeClass('text-danger').addClass('text-success');
+
+            } else
+                
+                $('#message').html('No Coincide').removeClass('text-success').addClass('text-danger');;
+        });
+    })
+</script>
         }

@@ -119,6 +119,7 @@ namespace Inmo.Controllers
         {
             try
             {
+                ViewBag.Inquilino = inquilinoData.ObtenerPorId(id);
                 var lista = contratoData.ObtenerPorInquilino(id);
                 return View(lista);
             }

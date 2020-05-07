@@ -13,20 +13,24 @@ namespace Inmo.Controllers
 {
     public class InmuebleController : BaseController
     {
-
+        private InmuebleData inmuebleData;
+        private PropietarioData propietarioData;
+        private Estados e;
+        private ContratoData contratoData;
         private readonly IConfiguration configuration;
+        private ImagenData imagenData;
 
         public InmuebleController(IConfiguration configuration)
         {
             this.configuration = configuration;
             inmuebleData = new InmuebleData(configuration);
             propietarioData = new PropietarioData(configuration);
+            contratoData = new ContratoData(configuration);
+            imagenData = new ImagenData(configuration);
             e = new Estados();
 
         }
-        private InmuebleData inmuebleData;
-        private PropietarioData propietarioData;
-        private Estados e;
+        
 
         // GET: Inmueble
         public ActionResult Index()
@@ -38,7 +42,7 @@ namespace Inmo.Controllers
         // GET: Inmueble/Details/5
         public ActionResult Details(int id)
         {
-            
+            ViewBag.Imagenes = imagenData.ObtenerPorInmueble(id);
             Inmueble p = inmuebleData.ObtenerPorId(id);
             ViewBag.dueño = propietarioData.ObtenerPorId(p.PropietarioId).Nombre;
             return View(p);
@@ -119,6 +123,21 @@ namespace Inmo.Controllers
                 return RedirectToAction(nameof(Index));
             }
             catch
+            {
+                return View();
+            }
+        }
+
+
+        public ActionResult MisContratos(int id)
+        {
+            try
+            {
+                ViewBag.Inmueble = inmuebleData.ObtenerPorId(id);
+                var lista = contratoData.ObtenerPorInmuebleId(id);
+                return View(lista);
+            }
+            catch (MySqlException ez)
             {
                 return View();
             }

@@ -1,0 +1,59 @@
+﻿@model Inmo.Models.Imagen
+
+@{
+    ViewData["Title"] = "Imagenes";
+}
+
+    <div class="row">
+        <div class="col-md-12 col-lg-6  mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h6>Crear Nuevo Propietario</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="card-body">
+                                <form asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    
+                                    <div class="form-group" hidden>
+                                        <label asp-for="InmuebleId" class="control-label"></label>
+                                        <input asp-for="InmuebleId" class="form-control" value="@ViewBag.Inmueble.Id" />
+                                        <span asp-validation-for="InmuebleId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Imagenes</label>
+                                        <input id="UriFile" asp-for="UriFile" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple />
+                                        <span asp-validation-for="UriFile" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Agregar" class="btn btn-primary" />
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                    <div>
+                        <a asp-action="Index" asp-controller="Inmueble">Regresar a la lista</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

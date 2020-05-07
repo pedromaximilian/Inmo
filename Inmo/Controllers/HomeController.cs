@@ -34,9 +34,14 @@ namespace Inmo.Controllers
         {
             IEnumerable<Inmueble> total = inmuebleData.ObtenerTodos();
 
-            IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+            IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now, DateTime.Now);
             ViewBag.Disponibles = i.Count();
-            ViewBag.Total = total.Count() - i.Count();
+
+            IEnumerable<Contrato> x = contratoData.ObtenerPorFechas(DateTime.Now, DateTime.Now);
+            
+            
+
+            ViewBag.Total = x.Count();
 
             decimal caja = 0;
 
@@ -87,7 +92,7 @@ namespace Inmo.Controllers
         {
             try
             {
-                IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+                IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(DateTime.Now, DateTime.Now);
 
 
 

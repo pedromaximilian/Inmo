@@ -3,209 +3,317 @@
 
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle Contrato";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Contrato</h4>
-    <hr />
-    <dl class="row">
-        <div class="col-6">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Id)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Inmueble.Direccion)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Inmueble.Direccion)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Inquilino.Nombre)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Inquilino.Nombre)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaInicio)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FechaInicio)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FechaFin)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FechaFin)
-            </dd>
-
-        </div>
-
-        <div class="col-6">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Monto)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Monto)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.NombreGarante)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NombreGarante)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DniGarante)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DniGarante)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TelefonoGarante)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.TelefonoGarante)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.MailGarante)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.MailGarante)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Estado)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Estado)
-            </dd>
-            </div>
-    </dl>
-</div>
-<div>
-
-    <a asp-action="Index" class="btn btn-dark">Regresar a la lista</a>
+<div class="row mb-2">
     @if (Model.Estado != "rescindido")
     {
-        <a class="btn btn-danger" href="@Url.Action("Rescindir", "Contrato", new { id = @Model.Id })">
+        <a class="btn btn-warning mb-1 ml-2" href="@Url.Action("Rescindir", "Contrato", new { id = @Model.Id })">
             <i class="fi-xnpuxl-home"></i> Rescindir Contrato
         </a>
     }
     else
     {
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-default-warning mb-1" role="alert">
             Este contrato ha sido rescindido antes de finalizar
         </div>
-            
+
+    }
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-6 col-lg-6  mx-auto">
+
+
+        <div class="card card-primary collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title">Datos de Contrato</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- aca inicia el form !-->
+            <div class="card-body">
+
+                <table class="table stripe">
+
+                    <tbody>
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Inmueble.Direccion)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Inquilino.Nombre)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaInicio)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaInicio)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaFin)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.FechaFin)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Monto)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Monto)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NombreGarante)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.NombreGarante)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DniGarante)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.DniGarante)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefonoGarante)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.TelefonoGarante)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MailGarante)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.MailGarante)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Estado)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Estado)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    @*@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |*@
+                    <a asp-action="Index" class="btn btn-dark">regresar a la lista</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <div class="col-md-6 col-lg-6  mx-auto">
+
+
+        <div class="card card-success collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title">Pagos</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- aca inicia el form !-->
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Pago
+                            </th>
+                            <th>
+                                Vencimiento
+                            </th>
+                            <th>
+                                Fecha Pago
+                            </th>
+                            <th>
+                                Importe
+                            </th>
+                            <th id="estadoPago">
+                                Estado
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Pago item in ViewBag.Pagos)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Numero
+                                </td>
+                                <td>
+                                    @item.FechaVencimiento.ToShortDateString()
+                                </td>
+                                <td>
+                                    @if (item.FechaPago.ToString() != "01/01/0001 0:00:00")
+                                    {
+
+                                        @item.FechaPago.ToShortDateString();
+                                    }
+
+
+
+
+                                </td>
+                                <td>
+                                    @item.Importe
+                                </td>
+                                <td>
+                                    @if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
+                                    {
+                                        <span class="badge badge-pill badge-danger">Atrasado</span>
+                                    }
+
+                                    else
+                                    {
+
+                                        @if (item.Estado == "pendiente")
+                                        {
+
+                                            <span class="badge badge-pill badge-warning">@item.Estado</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-primary">@item.Estado</span>
+                                        }
+
+                                    }
+
+
+                                </td>
+
+
+                                <td>
+                                    @if (item.Estado != "pagado" && Model.Estado != "rescindido")
+                                    {
+                                        <a class="btn btn-primary" href="@Url.Action("Pagar", "Pago", new { id = item.Id })">
+                                            Pagar
+
+                                        </a>
+                                    }
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    @*@Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |*@
+                    <a asp-action="Index" class="btn btn-dark">regresar a la lista</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+
+
+</div>
+
+
+@section Scripts {
+    <script>
+        function borrar(x) {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    alert("/Propietario/Eliminar/" + x);
+                    var uri = "/Propietario/Eliminar/" + x
+                    window.location = uri;
+                }
+            }
+
+            )
+        }
+
+
+
+    </script>
+
+
+    @if (ViewBag.Multa != null)
+    {
+
+        <script>
+
+            Swal.fire(
+                'Debe abonar multa',
+                '@ViewBag.Multa',
+                'error'
+            )
+
+
+        </script>
+
     }
 
 
-        </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-
-                    <th>
-                        Pago
-                    </th>
-                    <th>
-                        Vencimiento
-                    </th>
-                    <th>
-                        Fecha Pago
-                    </th>
-                    <th>
-                        Importe
-                    </th>
-                    <th id="estadoPago">
-                        Estado
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Pago item in ViewBag.Pagos)
-                {
-                    <tr>
-
-                        <td>
-                            @item.Numero
-                        </td>
-                        <td>
-                            @item.FechaVencimiento.ToShortDateString()
-                        </td>
-                        <td>
-                            @if (item.FechaPago.ToString() != "1/1/0001 00:00:00")
-                            {
-                                @item.FechaPago.ToShortDateString();
-                            }
 
 
-
-
-                        </td>
-                        <td>
-                            @item.Importe
-                        </td>
-                        <td>
-                            @if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
-                            {
-                                <span class="badge badge-pill badge-danger">Atrasado</span>
-                            }
-
-                            else
-                            {
-
-                                @if (item.Estado == "pendiente")
-                                {
-
-                                    <span class="badge badge-pill badge-warning">@item.Estado</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-pill badge-primary">@item.Estado</span>
-                                }
-
-                            }
-
-
-
-
-
-
-
-
-
-                        </td>
-
-
-
-
-
-
-
-
-
-                        <td>
-                            @if (item.Estado != "pagado" && Model.Estado != "rescindido")
-                            {
-                                <a class="btn btn-primary" href="@Url.Action("Pagar", "Pago", new { id = item.Id })">
-                                    Pagar
-
-                                </a>
-                            }
-
-
-
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-
+    
+}
 

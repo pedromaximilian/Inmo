@@ -9,8 +9,22 @@
         <div class="card-header">
             <a asp-action="Create" class="btn btn-secondary float-left">
                 <i class="fas fa-plus-circle">
-                </i> Agregar Propietario
+                </i> Agregar Contrato
             </a>
+
+            <form class="form-inline ml-3" action="/Contrato/vigentes">
+                <div class="input-group input-group-sm">
+                    <input name="inicio" class="form-control form-control-navbar ml-3" type="date" placeholder="desde" aria-label="Search">
+
+                </div>
+                <div class="input-group input-group-sm">
+                    <input name="fin" class="form-control form-control-navbar ml-3" type="date" placeholder="hasta" aria-label="Search">
+
+                </div>
+                <input type="submit" value="Buscar" class="btn btn-secondary ml-3">
+            </form>
+
+
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -24,22 +38,17 @@
                     <tr>
 
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+                        <th> Dirección Inmueble
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+                        <th>Nombre Inquilino
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FechaInicio)
+                        <th>@Html.DisplayNameFor(model => model.FechaInicio)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FechaFin)
+                        <th> @Html.DisplayNameFor(model => model.FechaFin)
                         </th>
 
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Estado)
+                        <th>@Html.DisplayNameFor(model => model.Estado)
                         </th>
                         <th></th>
                     </tr>
@@ -81,17 +90,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Inmueble.Direccion)
+                        <th>@Html.DisplayNameFor(model => model.Inmueble.Direccion)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Inquilino.Nombre)
+                        <th>@Html.DisplayNameFor(model => model.Inquilino.Nombre)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FechaInicio)
+                        <th>@Html.DisplayNameFor(model => model.FechaInicio)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FechaFin)
+                        <th>@Html.DisplayNameFor(model => model.FechaFin)
                         </th>
 
 
@@ -104,7 +109,7 @@
             </table>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
         </div>
     </div>
 

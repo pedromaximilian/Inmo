@@ -61,14 +61,16 @@ namespace Inmo.Controllers
                     if (usuario == null || usuario.Pass != hashed)
                     {
                         ModelState.AddModelError("", "El email o la clave no son correctas");
-                        return View();
+                        return View("index", u);
                     }
 
                     var claims = new List<Claim>
                     {
+                        
                         new Claim("Id", usuario.Id.ToString()),
                         new Claim(ClaimTypes.Name, usuario.Mail),
-                        new Claim(ClaimTypes.Role, RolesData.getById(usuario.RolId).Nombre)
+                        new Claim(ClaimTypes.Role, RolesData.getById(usuario.RolId).Nombre),
+                        new Claim("Image", usuario.Avatar)
 
                     
                     };
@@ -93,7 +95,8 @@ namespace Inmo.Controllers
                 }
                 else
                 {
-                    return View(u);
+                    ViewBag.Error = "Usuario o contraseña invalidos";
+                    return RedirectToAction(nameof(Index));
                 }
             }
             catch (Exception)

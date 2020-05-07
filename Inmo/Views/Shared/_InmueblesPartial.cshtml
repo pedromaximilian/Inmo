@@ -51,6 +51,10 @@
             </td>
             
             <td>
+                <a class="btn btn-primary" href="#">
+                    Clic!
+
+                </a>
 
             </td>
         </tr>
@@ -68,9 +72,10 @@
         table = $('#tablaAjax').DataTable();
         
         var data = table.row($(this).parents('tr')).data();
-        alert(data[0] + " - " + data[1]);
+        //alert(data[0] + " - " + data[1]);
         valor = data[0];
         $('.inmuebleId').val(data[0])
+        $(".inmuebleId").attr("value", data[0]);
         $('.inmuebleNombre').text(data[1])
         $('.inmuebleAmbientes').text("Ambientes: " + data[2])
         $('.inmuebleUso').text("Uso: " + data[3])
@@ -82,24 +87,24 @@
         $(".start").hide()
         $(".end").hide();
 
-
-
         inicio1 = new Date(inicio);
         var d = inicio1.getDate();
         var m = inicio1.getMonth();
         m += 1;  // JavaScript months are 0-11
+        d += 1;
         var y = inicio1.getFullYear();
 
-        inicio2 = new Date(inicio);
+        inicio2 = new Date(fin);
         var d2 = inicio2.getDate();
-        var m2 = inicio2.getMonth();
+        var m2 = inicio2.getMonth() ;
         m2 += 1;  // JavaScript months are 0-11
+        d2 += 1;
         var y2 = inicio2.getFullYear();
 
 
 
-        $('.seleccionInicio').text("Fecha Inicio: " + d + "." + m + "." + y)
-        $('.seleccionFin').text("Fecha Fin: " + d2 + "." + m2 + "." + y2)
+        $('.seleccionInicio').text("Fecha Inicio: " + d + " - " + m + " - " + y)
+        $('.seleccionFin').text("Fecha Fin: " + d2 + " - " + m2 + " - " + y2)
     });
 
 

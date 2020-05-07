@@ -55,8 +55,17 @@ namespace Inmo.Controllers
         {
             try
             {
-                int res = propietarioData.Alta(p);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid) {
+                    int res = propietarioData.Alta(p);
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    var errors = ModelState.Values.SelectMany(v => v.Errors);
+                    ViewBag.Error = "verifique datos ingresados";
+                    return View(p);
+                }     
             }
             catch
             {
@@ -81,8 +90,16 @@ namespace Inmo.Controllers
             
             try
             {
-                propietarioData.Modificacion(p);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    propietarioData.Modificacion(p);
+                    ViewBag.Exito = "Datos guardados";
+                    return RedirectToAction(nameof(Index));
+                }
+                else {
+                    ViewBag.Error = "Error al guardar";
+                    return View(p);
+                }
             }
             catch (MySqlException ex)
             {
@@ -90,7 +107,6 @@ namespace Inmo.Controllers
                 return View(p);
             }
         }
-
 
 
         // POST: Propietario/Delete/5
@@ -101,12 +117,13 @@ namespace Inmo.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                propietarioData.Baja(id);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.Error = "Este registro contiene datos asociados y no se puede eliminar";
                 return View();
             }
         }
@@ -115,12 +132,10 @@ namespace Inmo.Controllers
         // GET: Propietario/Inmuebles/5
         public ActionResult MisInmuebles(int id)
         {
-
-
-
-
             try
             {
+
+                ViewBag.Propietario = propietarioData.ObtenerPorId(id).Nombre;
                 var lista = inmuebleData.obtenerPorPropietario(id);
                 return View(lista);
             }
@@ -130,5 +145,14 @@ namespace Inmo.Controllers
                 return View();
             }
         }
+
+        public ActionResult Eliminar(int id)
+        {
+            var p = propietarioData.ObtenerPorId(id);
+
+            return View(p);
+        }
+
+
     }
 }

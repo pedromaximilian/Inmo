@@ -4,11 +4,9 @@
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PropietarioId)
+                Nombre Propietario
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Direccion)
@@ -34,11 +32,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PropietarioId)
+                @Html.DisplayFor(modelItem => item.Propietario.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Direccion)
@@ -58,10 +54,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Disponible)
             </td>
-            <td>
-                
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>

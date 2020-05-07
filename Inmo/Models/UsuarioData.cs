@@ -37,7 +37,6 @@ namespace Inmo.Models
                         command.CommandType = CommandType.Text;
                         command.Parameters.AddWithValue("@mail", p.Mail);
                         command.Parameters.AddWithValue("@pass", p.Pass);
-                        
                         command.Parameters.AddWithValue("@rol", p.RolId);
 
                         connection.Open();
@@ -76,16 +75,39 @@ namespace Inmo.Models
             int res = -1;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = $"UPDATE usuarios SET mail=@mail, pass=@pass, rolId=@rolId WHERE Id = @id";
+                string sql = $"UPDATE usuarios SET mail=@mail, rolId=@rolId, avatar=@avatar WHERE Id = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
                     command.Parameters.AddWithValue("@id", p.Id);
                     command.Parameters.AddWithValue("@mail", p.Mail);
-                    command.Parameters.AddWithValue("@pass", p.Pass);
+                    
                     
                     command.Parameters.AddWithValue("@rolId", p.RolId);
+                    command.Parameters.AddWithValue("@avatar", p.Avatar);
+
+
+
+                    connection.Open();
+                    res = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            return res;
+        }
+
+        public int ModificacionPass(Usuario p)
+        {
+            int res = -1;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string sql = $"UPDATE usuarios SET pass=@pass WHERE Id = @id";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@id", p.Id);
                     
+                    command.Parameters.AddWithValue("@pass", p.Pass);
 
                     connection.Open();
                     res = command.ExecuteNonQuery();
@@ -118,8 +140,8 @@ namespace Inmo.Models
                                 Mail = reader.GetString(1),
                                 Pass = reader.GetString(2),
                                 RolId = reader.GetInt32(3),
-                                
-                                
+                                Avatar = reader.GetString(4)
+
                             };
                             res.Add(p);
                         }
@@ -156,7 +178,7 @@ namespace Inmo.Models
                             Pass = reader.GetString(2),
                             
                             RolId = reader.GetInt16(3),
-                            
+                            Avatar = reader.GetString(4)
 
                         };
                     }
@@ -188,6 +210,7 @@ namespace Inmo.Models
                             Pass = reader.GetString(2),
                             
                             RolId = reader.GetInt16(3),
+                            Avatar = reader.GetString(4)
                             
 
                         };

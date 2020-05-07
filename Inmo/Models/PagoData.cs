@@ -103,6 +103,7 @@ namespace Inmo.Models
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@Id", p.Id);
                     command.Parameters.AddWithValue("@contratoId", p.ContratoId);
                     command.Parameters.AddWithValue("@numero", p.Numero);
                     command.Parameters.AddWithValue("@fechaVencimiento", p.FechaVencimiento);

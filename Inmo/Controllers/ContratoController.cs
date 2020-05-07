@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -57,6 +58,7 @@ namespace Inmo.Controllers
             IList<Pago> pagos = pagoData.ObtenerPorContrato(id);
             ViewBag.Pagos = pagoData.ObtenerPorContrato(id);
             Contrato c = contratoData.ObtenerPorId(id);
+
             foreach (var item in pagos)
             {
                 if (item.FechaVencimiento < DateTime.Now && item.Estado != "pagado")
@@ -66,13 +68,36 @@ namespace Inmo.Controllers
                     return View("Details",c);
                 }
             }
+            // calculo de multa
+
+            Double diasIniciales = (c.FechaFin - c.FechaInicio).TotalDays;
+            Double diasReales = (DateTime.Now - c.FechaInicio).TotalDays;
+
+            if ((diasIniciales/2)<diasReales)
+            {
+                ViewBag.Multa = c.Monto * 2;
+            }
+
 
             c.Estado = "rescindido";
             c.FechaFin = DateTime.Now;
-
-
             contratoData.Modificacion(c);
-            ViewBag.Error = "El contrato ha sido rescindido";
+
+            //foreach (var item in pagos)
+            //{
+            //    if (item.Estado == "pendiente")
+            //    {
+
+            //        item.Estado = "rescindido";
+            //        pagoData.Modificacion(item);
+            //    }
+            //}
+
+            ViewBag.Exito = "El contrato ha sido rescindido";
+
+            
+
+
             return View("Details", c);
         }
 
@@ -231,6 +256,7 @@ namespace Inmo.Controllers
         }
 
  
+       
 
         // POST: Contrato/Delete/5
         [HttpPost]
@@ -255,31 +281,57 @@ namespace Inmo.Controllers
         {
 
             IEnumerable<Inmueble> i = inmuebleData.ObtenerTodos();
+            
             return PartialView("_InmueblesDisponiblesPartial", i);
 
         }
 
-        public ActionResult buscar2(String fecha1, String fecha2)
+        public ActionResult buscar2(DateTime fecha1, DateTime fecha2)
+        
         {
-
             try
             {
-                if (DateTime.Parse(fecha1) < DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
+                if (fecha1.Date < DateTime.Now.Date)
                 {
                     return PartialView("_ErrorPartial", (ViewBag.msj = "La fecha inicio no puede ser inferior a hoy"));
                 }
-                if (DateTime.Parse(fecha1) > DateTime.Parse(fecha2))
+                if (fecha1 > fecha2)
                 {
                     return PartialView("_ErrorPartial", (ViewBag.msj = "La fecha inicio no puede ser superior a la fecha de fin"));
                 }
-
                     IEnumerable<Inmueble> i = inmuebleData.disponiblesPorFechas(fecha1, fecha2);
                     return PartialView("_InmueblesPartial", i);
-  
             }
             catch (Exception)
             {
                 return PartialView("_ErrorPartial", (ViewBag.msj = "No hay resultados para su busqueda o ha ingresado mal las fechas"));
+            }
+        }
+
+
+        public ActionResult vigentes(DateTime inicio, DateTime fin)
+
+        {
+            try
+            {
+                if (inicio > fin)
+                {
+                    ViewBag.Error = "Error al ingresar las fechas";
+                    var lista2 = contratoData.ObtenerTodos();
+
+
+                    return View(lista2);
+
+                }
+
+
+                var lista = contratoData.ObtenerPorFechas(inicio, fin);
+
+                return View("Index", lista);
+            }
+            catch (Exception e)
+            {
+                return View();
             }
         }
     }

@@ -167,6 +167,8 @@ namespace Inmo.Models
                     connection.Close();
                 }
             }
+
+            p.Propietario = propietarioData.ObtenerPorId(p.PropietarioId);
             return p;
         }
 
@@ -208,32 +210,27 @@ namespace Inmo.Models
             return res;
         }
 
-
-        public IList<Inmueble> disponiblesPorFechas(string inicio, string fin)
+        public IList<Inmueble> disponiblesPorFechas(DateTime inicio, DateTime fin)
         {
-
 
             List<Inmueble> res = new List<Inmueble>();
             Inmueble p = null;
 
-            if (DateTime.Parse(inicio) > DateTime.Parse(fin))
-            {
-                return res;
-            }
+            // Aca me llegan datetime 
+
+            String start = inicio.ToString("yyyy-MM-dd"); // yyyy-MM-dd
+            String end = fin.ToString("yyyy-MM-dd"); //dd-MM-yyyy
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-               
-
-                string sql2 = "SELECT * FROM inmuebles i WHERE i.id NOT IN( SELECT I.id FORM from contratos c INNER JOIN inmuebles i ON i.id = c.inmuebleId " +
-                    "WHERE (@inicio <= c.fecha_fin) AND (@fin >= c.fecha_inicio))";
-
+                string sql2 = "SELECT * FROM inmuebles i WHERE i.disponible = 1 and i.id NOT IN( SELECT I.id from contratos c INNER JOIN inmuebles i ON i.id = c.inmuebleId " +
+                    "WHERE (@inicio <= c.fecha_fin) AND (@fin >= c.fecha_inicio) AND c.estado != 'rescindido')";
                 try
                 {
                     using (MySqlCommand command = new MySqlCommand(sql2, connection))
                     {
-                        command.Parameters.Add("@inicio", MySqlDbType.String).Value = inicio;
-                        command.Parameters.Add("@fin", MySqlDbType.String).Value = fin;
+                        command.Parameters.Add("@inicio", MySqlDbType.String).Value = start;
+                        command.Parameters.Add("@fin", MySqlDbType.String).Value = end;
 
                         command.CommandType = CommandType.Text;
                         connection.Open();
@@ -251,6 +248,7 @@ namespace Inmo.Models
                                 Precio = reader.GetFloat(6),
                                 Disponible = reader.GetBoolean(7),
                             };
+                            p.Propietario = propietarioData.ObtenerPorId(p.PropietarioId);
                             res.Add(p);
                         }
                         connection.Close();

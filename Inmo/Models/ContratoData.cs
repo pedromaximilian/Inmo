@@ -33,10 +33,16 @@ namespace Inmo.Models
                         $"SELECT LAST_INSERT_ID();";//devuelve el id insertado
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
+
+
                         command.CommandType = CommandType.Text;
                         command.Parameters.AddWithValue("@inmuebleId", p.InmuebleId);
                         command.Parameters.AddWithValue("@inquilinoId", p.InquilinoId);
-                        command.Parameters.AddWithValue("@fecha_inicio", p.FechaInicio);
+
+                        // 
+                        //command.Parameters.AddWithValue("@fecha_inicio", p.FechaInicio);
+
+                        command.Parameters.AddWithValue("@fecha_inicio", DateTime.Now);
                         command.Parameters.AddWithValue("@fecha_fin", p.FechaFin);
                         command.Parameters.AddWithValue("@monto", p.Monto);
                         command.Parameters.AddWithValue("@nombre_garante", p.NombreGarante);
@@ -353,11 +359,143 @@ namespace Inmo.Models
             return c;
         }
 
-        
 
+        public IList<Contrato> ObtenerPorInmuebleId(int id)
+        {
+            Contrato c = null;
+            IList<Contrato> res = new List<Contrato>();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                
+                string sql = $"select * from contratos c join inquilinos i join inmuebles m WHERE c.inquilinoId = i.id AND c.inmuebleId = m.id and c.inmuebleId =@Id";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        c = new Contrato
+                        {
+                            Id = reader.GetInt32(0),
+                            InmuebleId = reader.GetInt32(1),
+                            InquilinoId = reader.GetInt32(2),
+                            FechaInicio = reader.GetDateTime(3),
+                            FechaFin = reader.GetDateTime(4),
+                            Monto = reader.GetDecimal(5),
+                            NombreGarante = reader.GetString(6),
+                            DniGarante = reader.GetString(7),
+                            TelefonoGarante = reader.GetString(8),
+                            MailGarante = reader.GetString(9),
+                            Estado = reader.GetString(10),
 
+                        };
+                        Inquilino inq = new Inquilino
+                        {
+                            Id = reader.GetInt32(11),
+                            Nombre = reader.GetString(12),
+                            Apellido = reader.GetString(13),
+                            Dni = reader.GetString(14),
+                            Telefono = reader.GetString(15),
+                            Email = reader.GetString(16),
+                            LugarTrabajo = reader.GetString(17),
+                            Estado = reader.GetString(18),
+                        };
 
+                        Inmueble i = new Inmueble
+                        {
+                            Id = reader.GetInt32(19),
+                            PropietarioId = reader.GetInt32(20),
+                            Direccion = reader.GetString(21),
+                            Ambientes = reader.GetInt32(22),
+                            Uso = reader.GetString(23),
+                            Tipo = reader.GetString(24),
+                            Precio = reader.GetFloat(25),
+                            Disponible = reader.GetBoolean(26),
 
+                        };
 
+                        c.Inquilino = inq;
+                        c.Inmueble = i;
+
+                        res.Add(c);
+                    }
+                    connection.Close();
+                }
+            }
+            return res;
+        }
+
+        public IList<Contrato> ObtenerPorFechas(DateTime inicio, DateTime fin)
+        {
+
+            String start = inicio.ToString("yyyy-MM-dd"); // yyyy-MM-dd
+            String end = fin.ToString("yyyy-MM-dd"); //dd-MM-yyyy
+            Contrato c = null;
+            IList<Contrato> res = new List<Contrato>();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+
+                string sql = "select * from contratos c INNER JOIN inquilinos i ON c.inquilinoId = i.id INNER JOIN inmuebles d ON c.inmuebleId = d.id WHERE c.fecha_inicio >= @inicio AND c.fecha_fin <= @fin AND c.estado != 'rescindido'";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@inicio", MySqlDbType.String).Value = start;
+                    command.Parameters.Add("@fin", MySqlDbType.String).Value = end;
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        c = new Contrato
+                        {
+                            Id = reader.GetInt32(0),
+                            InmuebleId = reader.GetInt32(1),
+                            InquilinoId = reader.GetInt32(2),
+                            FechaInicio = reader.GetDateTime(3),
+                            FechaFin = reader.GetDateTime(4),
+                            Monto = reader.GetDecimal(5),
+                            NombreGarante = reader.GetString(6),
+                            DniGarante = reader.GetString(7),
+                            TelefonoGarante = reader.GetString(8),
+                            MailGarante = reader.GetString(9),
+                            Estado = reader.GetString(10),
+
+                        };
+                        Inquilino inq = new Inquilino
+                        {
+                            Id = reader.GetInt32(11),
+                            Nombre = reader.GetString(12),
+                            Apellido = reader.GetString(13),
+                            Dni = reader.GetString(14),
+                            Telefono = reader.GetString(15),
+                            Email = reader.GetString(16),
+                            LugarTrabajo = reader.GetString(17),
+                            Estado = reader.GetString(18),
+                        };
+
+                        Inmueble i = new Inmueble
+                        {
+                            Id = reader.GetInt32(19),
+                            PropietarioId = reader.GetInt32(20),
+                            Direccion = reader.GetString(21),
+                            Ambientes = reader.GetInt32(22),
+                            Uso = reader.GetString(23),
+                            Tipo = reader.GetString(24),
+                            Precio = reader.GetFloat(25),
+                            Disponible = reader.GetBoolean(26),
+
+                        };
+
+                        c.Inquilino = inq;
+                        c.Inmueble = i;
+
+                        res.Add(c);
+                    }
+                    connection.Close();
+                }
+            }
+            return res;
+        }
     }
 }
